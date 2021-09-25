@@ -1,5 +1,13 @@
+window.addEventListener("load" ,function(){
+    console.log("loaded")
+    recupererListe()    
+})
+
+
+
 // get de l'api
-fetch(url_api)
+var recupererListe=()=>{
+    fetch(url_api)
     .then((response) => response.json())
     .then((data) => {
         console.log(data)
@@ -12,6 +20,8 @@ fetch(url_api)
     })*/
     .catch((erreur) => console.log("erreur : " + erreur));
 
+
+}
 //fonction de recuperation de liste
 function listerTeddies(data) {
     //parcourir la liste 
@@ -36,10 +46,9 @@ function listerTeddies(data) {
                       </div>
                   </div>
                   <p class="card-text text-truncate">${teddies.description}</p>
-                  <a href="./frontend/produit.html?_id=${teddies._id}" class="btn btn-secondary">Acheter une nounours</a>
+                  <a href="./produit.html?_id=${teddies._id}" class="btn btn-secondary">Acheter une nounours</a>
               </div>
           </div>
       </div>`;
     }
 }
-

@@ -1,3 +1,4 @@
+
 const searchParams = new URLSearchParams(location.search);
 
 const id_teddies = searchParams.get("_id");
@@ -15,15 +16,23 @@ fetch(teddies_Url)
         console.log(product._id);
         console.log(product.price);
         listerElemnt(data);
+        
 
     })
 
     function listerElemnt(data) {
         //parcourir la liste 
-       
+          console.log(data)
            
             const card = document.getElementById("element");
+            let options="";
+            for(color of data.colors ){
+                console.log(color);
+                options +=`<option value="${color}">${color}</option>`
             
+                
+            
+            }
             //const price = convertPrice(teddies.price);
             card.innerHTML += `
           <div class="  ">
@@ -35,28 +44,74 @@ fetch(teddies_Url)
                             <img src="${data.imageUrl}" class="img-fluid img-thumbnail p-1" alt="${data.name}"></a>
                           </div>
                          
-                          <div class=" col-6 mt-3" >
-                              <h5 class="card-title">${data.name}</h5>
+                          <div class=" col-6 mt-3 row" id="caracteristique">
+                              <h5 class="card-title col-3">${data.name}</h5>
                           
                               <div class=" col-sm-5 text-end mt-3">
-                                 <h5 class="card-title">${data.price +" €"}</h5>
+                                 <h5 class="card-title">${data.price/100 +" €"}</h5>
                                 </div>
-                                <p class="card-text text-truncate">${data.description}</p>
-                                <a href="panier.html?_id=${data._id}" class="btn btn-secondary">Ajouter au panier pour ${data.price +" €"} </a>
-                                <select>
-                                <option>${data.colors[0]}</option>
-                                <option>${data.colors[1]}</option>
-                                <option>${data.colors[2]}</option>
-                                <option>${data.colors[3]}</option>
                                 
-                                <option>${data.colors[4]}</option>
-
-
+                                <p class="card-text text-truncate">${data.description}</p>
+                                <select>${options}
                                 </select>
                              </div>   
                             
                   </div>
               </div>
           </div>`;
-        }
-    
+         //creation de l'element button dans l'element id=carateristique   
+        const caracteristique=document.getElementById("caracteristique")
+        let AJouterTeddy = document.createElement("button");
+        caracteristique.appendChild(AJouterTeddy);
+        AJouterTeddy.type = 'submit';
+        AJouterTeddy.name = 'Ajourt';
+        AJouterTeddy.id = 'submit';
+        AJouterTeddy.textContent = "Ajouter au panier"
+         
+        
+
+     //
+     AJouterTeddy.addEventListener("click", function (event) {
+        console.log("vous venez d'ajouter");
+         event.preventDefault();
+
+    //  les donnés  teddy à envoyer dans localStorage
+         let teddiesChoisie = {
+             teddyNom:data.name,
+             teddyId: data._id,
+             quantity: 1,
+             teddyColor:data.colors,
+             teddyPrice: data.price / 100,
+         };
+        
+
+         let HisTeddies = JSON.parse(localStorage.getItem('NouveauArticle'));
+         if(HisTeddies) {
+             HisTeddies.push(teddiesChoisie);
+             localStorage.setItem('NouveauArticle', JSON.stringify(HisTeddies));
+             console.log(HisTeddies);
+             if (window.confirm(teddiesChoisie.teddyNom + " " + teddiesChoisie.teddyColor + ' a bien été ajouté. Souhaitez vous consulter votre panier ?')) { 
+                 window.location.href = "panier.html";
+             } else {
+                alert("rien nest envoyé dans le panier")
+                 window.location.href = "index.html";
+                 
+             }
+         } 
+         else {
+             HisTeddies = [];
+             HisTeddies.push(teddiesChoisie);
+             localStorage.setItem('NouveauArticle', JSON.stringify(HisTeddies));
+             console.log(HisTeddies);
+             if (window.confirm(teddiesChoisie.teddyNom + " " + teddiesChoisie.teddyColor + ' a bien été ajouté. Souhaitez vous consulter votre panier ?')) { 
+                 window.location.href = "panier.html";
+             } else {
+                 window.location.href = "index.html";
+             }
+         }
+      }
+     );
+ 
+;
+
+}
