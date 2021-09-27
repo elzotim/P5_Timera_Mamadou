@@ -66,7 +66,8 @@ fetch(teddies_Url)
         AJouterTeddy.type = 'submit';
         AJouterTeddy.name = 'Ajourt';
         AJouterTeddy.id = 'submit';
-        AJouterTeddy.textContent = "Ajouter au panier"
+        AJouterTeddy.textContent = "Ajouter au panier";
+        AJouterTeddy.className="btn btn-secondary"
          
         
 
@@ -77,41 +78,46 @@ fetch(teddies_Url)
 
     //  les donnés  teddy à envoyer dans localStorage
          let teddiesChoisie = {
-             teddyNom:data.name,
+             teddyImage:data.imageUrl,
+            teddyNom:data.name,
              teddyId: data._id,
-             quantity: 1,
+             quatity: 1,
              teddyColor:data.colors,
              teddyPrice: data.price / 100,
          };
         
-
+     
          let HisTeddies = JSON.parse(localStorage.getItem('NouveauArticle'));
+         
          if(HisTeddies) {
-             HisTeddies.push(teddiesChoisie);
-             localStorage.setItem('NouveauArticle', JSON.stringify(HisTeddies));
-             console.log(HisTeddies);
-             if (window.confirm(teddiesChoisie.teddyNom + " " + teddiesChoisie.teddyColor + ' a bien été ajouté. Souhaitez vous consulter votre panier ?')) { 
+            //  HisTeddies.push(teddiesChoisie);
+            //  localStorage.setItem('NouveauArticle', JSON.stringify(HisTeddies));
+             const envoiePagner=window.confirm("Souhaitez-vous ajouté "+teddiesChoisie.teddyNom + " "  + ' au panier ?')
+             if (envoiePagner==true) {
+                HisTeddies.push(teddiesChoisie);
+                localStorage.setItem('NouveauArticle', JSON.stringify(HisTeddies));
                  window.location.href = "panier.html";
              } else {
-                alert("rien nest envoyé dans le panier")
                  window.location.href = "index.html";
                  
              }
          } 
          else {
              HisTeddies = [];
-             HisTeddies.push(teddiesChoisie);
-             localStorage.setItem('NouveauArticle', JSON.stringify(HisTeddies));
-             console.log(HisTeddies);
-             if (window.confirm(teddiesChoisie.teddyNom + " " + teddiesChoisie.teddyColor + ' a bien été ajouté. Souhaitez vous consulter votre panier ?')) { 
+             const envoiePagner=window.confirm("Souhaitez-vous ajouté "+teddiesChoisie.teddyNom + " "  + ' au panier ?')
+
+             if (envoiePagner==true) {
+                HisTeddies.push(teddiesChoisie);
+                localStorage.setItem('NouveauArticle', JSON.stringify(HisTeddies));
                  window.location.href = "panier.html";
              } else {
                  window.location.href = "index.html";
+                 
              }
          }
       }
      );
  
-;
+
 
 }

@@ -42,7 +42,7 @@ function listerTeddies(data) {
                           <h5 class="card-title">${teddies.name}</h5>
                       </div>
                       <div class="col-6 col-sm-5 text-end mt-3">
-                          <h5 class="card-title">${teddies.price +" €"}</h5>
+                          <h5 class="card-title">${teddies.price/100 +" €"}</h5>
                       </div>
                   </div>
                   <p class="card-text text-truncate">${teddies.description}</p>
