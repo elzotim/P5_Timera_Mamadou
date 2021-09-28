@@ -22,11 +22,16 @@ CarteddyDiv.className="Carte_Teddy"
 const teddyH3 = document.createElement('h3');
 CarteddyDiv.appendChild(teddyH3);
 teddyH3.textContent = "Vos oursons :";
+const table=document.querySelector('table')
+const vidCacher=document.getElementById('vidCacher')
+
 //Lorseque le localstorege est vide??????
 if(TeddiesLocalStorage == null || TeddiesLocalStorage.length === 0){
     const PanierVide=document.createElement("p")
     CarteddyDiv.appendChild(PanierVide)
     PanierVide.className = "CarteVide";
+    table.style.visibility="hidden"
+    vidCacher.style.visibility="hidden"
     PanierVide.textContent="Votre Panier est vide pour Linstant"
 }
 else {
@@ -34,6 +39,7 @@ else {
     
         // si des éléments sont présents dans le panier : récupération des éléments du panier
         let i = 0;
+       
         for (lesElements of TeddiesLocalStorage) {
             console.log(lesElements)
             const infosTeddy = document.createElement('div');
@@ -42,17 +48,28 @@ else {
    
             const teddiesCart = document.createElement('p');
             infosTeddy.appendChild(teddiesCart);
-        teddiesCart.textContent = lesElements.quantity + " " + lesElements.teddyNom + " , ";
-        ////Affichage du prix
+        teddiesCart.textContent = lesElements.quantity + " " + lesElements.teddyNom + lesElements.teddyColor;
+        ////color et quantique
         
-        const teddyPrix = document.createElement('div');
-        infosTeddy.appendChild(teddyPrix);
-        teddyPrix.className = 'teddy_prix';
-        teddyPrix.id = i++;
-        const prix = document.createElement('p');
-        teddyPrix.appendChild(prix);
-        prix.textContent = lesElements.teddyPrice + "euro €"
-        ////Affichage du limage
+      
+       
+
+        const tbody =document.createElement("tbody")
+        table.appendChild(tbody)
+        const tr2=document.createElement('tr')
+        tbody.appendChild(tr2)
+        const td1=document.createElement('td')
+        tr2.appendChild(td1)
+        td1.textContent=lesElements.teddyNom;
+        const td2=document.createElement('td')
+        tr2.appendChild(td2)
+        td2.textContent=lesElements.teddyPrice +"€"
+        const td3=document.createElement('td')
+        tr2.appendChild(td3)
+        td3.textContent=lesElements.teddyColor
+
+         
+   //////////////les images         
         const teddyImage = document.createElement('div');
         infosTeddy.appendChild(teddyImage);
         teddyImage.className = 'imagteddy';
@@ -70,7 +87,24 @@ else {
         iconButton.className = 'fas fa-trash-alt Acacher';
 
 };
-//calcul du montant total et son 
+// on récupére l'article associé au bouton poubelle
+// let supprime_teddy = document.getElementsByClassName('supprime_teddy');
+// for (let i = 0 ; i < supprime_teddy.length; i++) {
+//     supprime_teddy[i].addEventListener('click' , function (event) { 
+//         event.preventDefault();
+//         let id = this.closest('.teddyprix').id;
+
+//         //on supprime l'article du localStorage
+//         TeddiesLocalStorage.splice(id, 1);
+
+//         //on enregistre le nouveau localStorage
+//         localStorage.setItem('NouveauArticle', JSON.stringify(TeddiesLocalStorage));
+//         JSON.parse(localStorage.getItem('NouveauArticle'));
+
+//         alert('Cet article a bien été supprimé !');
+//         window.location.href = "panier.html" }); 
+//     };
+        //calcul du montant total et son 
 let calculePrix = []
 for (elementDeTeddy of TeddiesLocalStorage) {
     let PrixArticle = elementDeTeddy.teddyPrice;
@@ -86,6 +120,10 @@ const total = document.createElement('p');
 CarteddyDiv.appendChild(total);
 total.className = 'total';
 total.textContent = "Montant total = " + totalPrice + " €";
+const tfoot =document.getElementById("MontantTotal")
+        // table.appendChild(tfoot)
+     
+        tfoot.textContent=totalPrice + " €"
 
 }
 ////butoon pour vider le panier
@@ -116,3 +154,86 @@ ButVidPagnet.className = 'icon_SupButton  btn-secondary';
         }
        
     });
+    
+    ///le formulaire
+
+  var Listfonction= {
+ validNom:(ev)=>{
+   var inputNom=ev.target; 
+   var contenu =inputNom.value.trim() ;
+   var nom =document.getElementById("NomError")
+   
+   console.log(inputNom)
+   if (!contenu){
+       nom.style.border="1px solid red"  
+   } else if (!(/^[a-zA-Z]{2,30}$/).test(contenu)){
+    nom.style.border="1px solid red"  
+   }
+   
+ },
+ validpreprenom:(ev)=>{
+    var inputPreNom=ev.target; 
+    var contenu =inputPreNom.value.trim() ;
+    var prenom =document.getElementById("PrenomlError")
+    
+    if (!contenu){
+       prenom.style.border="1px solid red"     
+    } else if (!(/^[a-zA-Z]{2,30}$/).test(contenu)){
+            prenom.style.border="1px solid red"   
+    }
+    
+  
+ },
+ validpremail:(ev)=>{
+    var inputPreNom=ev.target; 
+    var contenu =inputPreNom.value.trim() ;
+   var email= document.getElementById("PrenomlError")
+    var erreur=""
+    console.log(inputNom)
+    if (!contenu){
+        email.style.border="1px solid red"  
+    } else if (!/^[a-zA-Z]{2,30}$/.test(contenu)){
+        email.style.border="1px solid red"  
+    }
+    
+ },
+}
+ var setuplistenner =()=>{
+    var nom =document.forms[0]['nom']  
+    var prenom =document.forms[0]['prenom']  
+  nom? nom.onkeyup=Listfonction.validNom : null
+  prenom?prenom.onkeyup=Listfonction.validNom : null
+    
+
+}
+setuplistenner()  
+ 
+// création fonctions et validité mail
+function validMail(value){
+    return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(value)
+};
+var mail =document.getElementById("email")
+mail.addEventListener("change", function (event) {
+    if (validMail(mail.value)){
+    } else {
+        event.preventDefault()
+        alert("Veuillez saisir une adresse mail valide (exemple : abcd@mail.com).");
+    }
+});
+// création fonctions et  validité prénom, nom, ville
+function isValid(value) {
+    return /^[A-Z-a-z\s]{3,40}$/.test(value);
+};
+var ville=document.getElementById("ville")
+
+ville.addEventListener( "change",function(evenement){
+if (isValid(ville.value)) {
+    
+} 
+    else {
+        
+        ville.style.border="1px solid red"
+        evenementt.preventDefault()
+    }
+    
+})

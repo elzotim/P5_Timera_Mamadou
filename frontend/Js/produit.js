@@ -33,7 +33,6 @@ fetch(teddies_Url)
                 
             
             }
-            //const price = convertPrice(teddies.price);
             card.innerHTML += `
           <div class="  ">
               <div class="card border bg-light  p-3 mb-5 bg-body rounded">
@@ -77,22 +76,21 @@ fetch(teddies_Url)
          event.preventDefault();
 
     //  les donnés  teddy à envoyer dans localStorage
+    const select = document.querySelector('select');
+     console.log()
          let teddiesChoisie = {
              teddyImage:data.imageUrl,
             teddyNom:data.name,
              teddyId: data._id,
              quatity: 1,
-             teddyColor:data.colors,
+             teddyColor:select.value,
              teddyPrice: data.price / 100,
          };
         
      
          let HisTeddies = JSON.parse(localStorage.getItem('NouveauArticle'));
-         
          if(HisTeddies) {
-            //  HisTeddies.push(teddiesChoisie);
-            //  localStorage.setItem('NouveauArticle', JSON.stringify(HisTeddies));
-             const envoiePagner=window.confirm("Souhaitez-vous ajouté "+teddiesChoisie.teddyNom + " "  + ' au panier ?')
+            const envoiePagner=window.confirm("Souhaitez-vous ajouté "+teddiesChoisie.teddyNom + " "  + ' au panier ?')
              if (envoiePagner==true) {
                 HisTeddies.push(teddiesChoisie);
                 localStorage.setItem('NouveauArticle', JSON.stringify(HisTeddies));

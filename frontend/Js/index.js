@@ -52,3 +52,4 @@ function listerTeddies(data) {
       </div>`;
     }
 }
+
