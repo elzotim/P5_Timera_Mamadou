@@ -34,8 +34,6 @@
     text-align: center;
     background-color: #F3E9F1;
   }
-.error{color: red;}
-.leNom{background-color: chartreuse;}
 </style>
 
 <body>
@@ -44,7 +42,7 @@
       <div class="mamama">
         <a href="./index.html"><img class="logo" src="../backend/images/logo_orinoco.png" alt="Orinoco">
         </a>
-        
+
       </div>
     </div>
   </header>
@@ -53,61 +51,61 @@
 
 
   </main>
+  <table class="table table-striped">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="row">Nom</th>
+        <th scope="row">Prix</th>
+        <th scope="row">Couleur</th>
+      </tr>
+    </thead>
+
+    <tfoot class="tfoot">
+      <td>Total</td>
+      <td id="MontantTotal"></td>
+  </table>
+
+
+
+  <div class="container" id="vidCacher">
+    <h1>Valider la Commande</h1>
+    <form action="" id="form" target="_blanck">
+      <div class="row mb-4">
+        <div class="col">
+          <input type="text" name="nom" id="nom" class="form-control" placeholder="Nom">
+          <span id="NomErreur"></span>
+        </div>
+        <div class="col">
+          <input type="text" name="prenom" id="Prenom" class="form-control" placeholder="Prénom">
+          <span id="PreNomErreur"></span>
+        </div>
+
+      </div>
+      <div class="row mb-4">
+        <div class="col">
+          <input id="email" type="email" class="form-control" placeholder="E-mail">
+          <span id="EmailErreur"></span>
+        </div>
+
+        <div class="row mb-4">
+          <div class="col">
+            <input type="text" id="adresse" name="adress" class="form-control" placeholder="Adresse">
+            <span id="AdressErreur"></span>
+          </div>
+
+          <div class="col">
+            <input type="text" name="ville" id="ville" class="form-control" placeholder="ville">
+            <span id="VilleErreur"></span>
+          </div>
+        </div> </br>
+        <div class="form-group form">
+          <button type="submit" class="btn btn-secondary desc">valider la commande</button>
+        </div>
+    </form>
+  </div>
   <div class="back">
     <button><a href="index.html" title="Retour sur la page d'accueil">Retour à l'accueil</a></button>
   </div>
-  <table class="table table-striped">
-    <thead class="thead-dark">
-     <tr>
-       <th scope="row">Nom</th>
-       <th scope="row">Prix</th>
-     <th scope="row">Couleur</th>
-   </tr>
-   </thead>
-   
-   <tfoot class="tfoot">
-     <td>Total</td>
-     <td id="MontantTotal"></td>    
- </table> 
- 
- 
- 
-  <div class="container" id="vidCacher">
-    <h1>Valider la Commande</h1>
-    <form action="" target="_blanck">
-       <div class="row mb-4">
-        <div class="error" id="NomError"></div>
-           <div class="col">
-             <input type="text" name="nom" class="form-control" placeholder="Nom">
-           </div>
-           <div class="error" id="PrenomError"></div>
-           <div class="col">
-             <input type="text" name="prenom" class="form-control" placeholder="Prénom">
-           </div>
-       </div>
-       <div class="row mb-4">
-           <div class="error" id="emailError"></div>
-           <div class="col">
-             <input  id="email" type="email" class="form-control" placeholder="E-mail">
-           </div>
-           <div class="col">
-             <input type="text" class="form-control" placeholder="Prénom">
-           </div>
-       </div>
-       <div class="row mb-4">
-        <div class="col">
-          <input type="text" name="adress" class="form-control" placeholder="Adresse">
-        </div>
-        <div class="error" id="villeError"></div>
-        <div class="col">
-          <input type="text" name="ville" id="ville" class="form-control" placeholder="ville">
-        </div>
-    </div>
-       <div class="form-group form">
-        <button class="btn btn-secondary desc">valider la commande</button>
-      </div> 
-   </form>
-</div>
 
   <footer>
 

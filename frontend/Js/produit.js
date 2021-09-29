@@ -16,24 +16,24 @@ fetch(teddies_Url)
         console.log(product._id);
         console.log(product.price);
         listerElemnt(data);
-        
+
 
     })
 
-    function listerElemnt(data) {
-        //parcourir la liste 
-          console.log(data)
-           
-            const card = document.getElementById("element");
-            let options="";
-            for(color of data.colors ){
-                console.log(color);
-                options +=`<option value="${color}">${color}</option>`
-            
-                
-            
-            }
-            card.innerHTML += `
+function listerElemnt(data) {
+    //parcourir la liste 
+    console.log(data)
+
+    const card = document.getElementById("element");
+    let options = "";
+    for (color of data.colors) {
+        console.log(color);
+        options += `<option value="${color}">${color}</option>`
+
+
+
+    }
+    card.innerHTML += `
           <div class="  ">
               <div class="card border bg-light  p-3 mb-5 bg-body rounded">
                   <div class="card-body ">
@@ -47,7 +47,7 @@ fetch(teddies_Url)
                               <h5 class="card-title col-3">${data.name}</h5>
                           
                               <div class=" col-sm-5 text-end mt-3">
-                                 <h5 class="card-title">${data.price/100 +" €"}</h5>
+                                 <h5 class="card-title">${data.price / 100 + " €"}</h5>
                                 </div>
                                 
                                 <p class="card-text text-truncate">${data.description}</p>
@@ -58,64 +58,64 @@ fetch(teddies_Url)
                   </div>
               </div>
           </div>`;
-         //creation de l'element button dans l'element id=carateristique   
-        const caracteristique=document.getElementById("caracteristique")
-        let AJouterTeddy = document.createElement("button");
-        caracteristique.appendChild(AJouterTeddy);
-        AJouterTeddy.type = 'submit';
-        AJouterTeddy.name = 'Ajourt';
-        AJouterTeddy.id = 'submit';
-        AJouterTeddy.textContent = "Ajouter au panier";
-        AJouterTeddy.className="btn btn-secondary"
-         
-        
+    //creation de l'element button dans l'element id=carateristique   
+    const caracteristique = document.getElementById("caracteristique")
+    let AJouterTeddy = document.createElement("button");
+    caracteristique.appendChild(AJouterTeddy);
+    AJouterTeddy.type = 'submit';
+    AJouterTeddy.name = 'Ajourt';
+    AJouterTeddy.id = 'submit';
+    AJouterTeddy.textContent = "Ajouter au panier";
+    AJouterTeddy.className = "btn btn-secondary"
 
-     //
-     AJouterTeddy.addEventListener("click", function (event) {
+
+
+    //
+    AJouterTeddy.addEventListener("click", function (event) {
         console.log("vous venez d'ajouter");
-         event.preventDefault();
+        event.preventDefault();
 
-    //  les donnés  teddy à envoyer dans localStorage
-    const select = document.querySelector('select');
-     console.log()
-         let teddiesChoisie = {
-             teddyImage:data.imageUrl,
-            teddyNom:data.name,
-             teddyId: data._id,
-             quatity: 1,
-             teddyColor:select.value,
-             teddyPrice: data.price / 100,
-         };
-        
-     
-         let HisTeddies = JSON.parse(localStorage.getItem('NouveauArticle'));
-         if(HisTeddies) {
-            const envoiePagner=window.confirm("Souhaitez-vous ajouté "+teddiesChoisie.teddyNom + " "  + ' au panier ?')
-             if (envoiePagner==true) {
+        //  les donnés  teddy à envoyer dans localStorage
+        const select = document.querySelector('select');
+        console.log()
+        let teddiesChoisie = {
+            teddyImage: data.imageUrl,
+            teddyNom: data.name,
+            teddyId: data._id,
+            quatity: 1,
+            teddyColor: select.value,
+            teddyPrice: data.price / 100,
+        };
+
+
+        let HisTeddies = JSON.parse(localStorage.getItem('NouveauArticle'));
+        if (HisTeddies) {
+            const envoiePagner = window.confirm("Souhaitez-vous ajouté " + teddiesChoisie.teddyNom + " " + ' au panier ?')
+            if (envoiePagner == true) {
                 HisTeddies.push(teddiesChoisie);
                 localStorage.setItem('NouveauArticle', JSON.stringify(HisTeddies));
-                 window.location.href = "panier.html";
-             } else {
-                 window.location.href = "index.html";
-                 
-             }
-         } 
-         else {
-             HisTeddies = [];
-             const envoiePagner=window.confirm("Souhaitez-vous ajouté "+teddiesChoisie.teddyNom + " "  + ' au panier ?')
+                window.location.href = "panier.html";
+            } else {
+                window.location.href = "index.html";
 
-             if (envoiePagner==true) {
+            }
+        }
+        else {
+            HisTeddies = [];
+            const envoiePagner = window.confirm("Souhaitez-vous ajouté " + teddiesChoisie.teddyNom + " " + ' au panier ?')
+
+            if (envoiePagner == true) {
                 HisTeddies.push(teddiesChoisie);
                 localStorage.setItem('NouveauArticle', JSON.stringify(HisTeddies));
-                 window.location.href = "panier.html";
-             } else {
-                 window.location.href = "index.html";
-                 
-             }
-         }
-      }
-     );
- 
+                window.location.href = "panier.html";
+            } else {
+                window.location.href = "index.html";
+
+            }
+        }
+    }
+    );
+
 
 
 }
