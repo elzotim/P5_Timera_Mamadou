@@ -148,13 +148,16 @@ sup {
     top: -0.5em;
 }
 a {
-    color: #ff0030a6;
+    color: white;
+    font-weight: bold;
     text-decoration: none;
-    background-color: transparent;
+    background-color: #6c757d;
+    border-color: #6c757d;
 }
 a:hover {
     color: #0056b3;
     text-decoration: underline;
+
 }
 a:not([href]) {
     color: inherit;
