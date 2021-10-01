@@ -3,6 +3,15 @@
 let TeddiesLocalStorage = JSON.parse(localStorage.getItem('NouveauArticle'));
 console.log(TeddiesLocalStorage);
 
+/////Declaration de mes variables 
+var InputNom = document.getElementById('nom')
+var InputPreNom = document.getElementById('Prenom')
+var mail = document.getElementById("email")
+var InputAdresse = document.getElementById('adresse')
+var InputVille = document.getElementById('ville')
+
+
+
 // création de la page du récapitulatif panier
 
 const teddyMain = document.getElementById('page_Produit');
@@ -121,162 +130,182 @@ else {
     total.className = 'total';
     total.textContent = "Montant total = " + totalPrice + " €";
     const tfoot = document.getElementById("MontantTotal")
-    // table.appendChild(tfoot)
-
     tfoot.textContent = totalPrice + " €"
 
+
+    ////butoon pour vider le panier
+    const ButVidPagnet = document.createElement('button');
+    CarteddyDiv.appendChild(ButVidPagnet);
+    ButVidPagnet.className = 'icon_SupButton  btn-secondary';
+
+    const cartLien = document.createElement('a');
+    ButVidPagnet.appendChild(cartLien);
+    cartLien.href = "panier.html";
+    cartLien.id = "cart_lien"
+    cartLien.title = 'Vider le panier ?';
+    cartLien.textContent = "Vider mon panier ";
+
+    const icon = document.createElement('i');
+    cartLien.appendChild(icon);
+    icon.className = 'fas fa-trash-alt'
+
+    ButVidPagnet.addEventListener("click", function (event) {
+        event.preventDefault();
+        const confirme = window.confirm("voulez vous vider le panier?")
+        if (confirme == true) {
+            window.location.href = "panier.html";
+            localStorage.removeItem('NouveauArticle');
+        } else {
+            window.location.href = "panier.html";
+
+        }
+
+    });
+
+    ///le formulaire
+
+    ///le formulaire
+
+    /////////////////Nom//////////////// valide///////////////////////////
+    function validationNom(value) {
+        return /^[A-Z-a-z\s]{5,80}$/.test(value)
+    };
+    Nom = document.getElementById('nom')
+    let NomErreur = document.getElementById('NomErreur')
+    Nom.addEventListener("change", function (event) {
+        if (validationAddress(Nom.value)) {
+            Nom.style.color = "green"
+            NomErreur.style.visibility = "hidden"
+
+        }
+        else {
+
+            NomErreur.innerHTML = "Le champ doit comporter que des lettres et chiffre "
+            NomErreur.style.color = "red"
+            NomErreur.style.marginTop = "10px"
+            event.preventDefault()
+        }
+    }
+    )
+    ////////////////////Prenom /////////////////Valide
+    function validationPreNom(value) {
+        return /^[A-Z-a-z\s]{5,80}$/.test(value)
+    };
+
+    PreNom = document.getElementById('Prenom')
+    let PreNomErreur = document.getElementById('PreNomErreur')
+    PreNom.addEventListener("change", function (event) {
+        if (validationPreNom(PreNom.value)) {
+            PreNom.style.color = "green"
+            PreNomErreur.style.visibility = "hidden"
+
+        }
+        else {
+
+            PreNomErreur.innerHTML = "Le champ doit comperter que des lettre et chiffre "
+            PreNomErreur.style.color = "red"
+            PreNomErreur.style.marginTop = "10px"
+            event.preventDefault()
+        }
+
+    }
+
+    )
+    // Vérification de la validité de l'adresse
+    function validationAddress(value) {
+        return /^[A-Z-a-z-0-9\s]{5,80}$/.test(value)
+
+    };
+    let AdressErreur = document.getElementById('AdressErreur')
+    adresse = document.getElementById('adresse')
+    adresse.addEventListener("change", function (event) {
+        if (validationAddress(adresse.value)) {
+            adresse.style.color = "green"
+            AdressErreur.style.visibility = "hidden"
+
+        } else {
+
+            AdressErreur.innerHTML = "Le champ doit comperter que des lettre et chiffre "
+            AdressErreur.style.color = "red"
+            AdressErreur.style.marginTop = "10px"
+            event.preventDefault()
+        }
+    }
+
+    )
+    //validation de la ville 
+
+    function validationVille(value) {
+        return /^[A-Z-a-z\s]{5,80}$/.test(value)
+    };
+    Ville = document.getElementById('ville')
+    let VilleErreur = document.getElementById('VilleErreur')
+    Ville.addEventListener("change", function (event) {
+        if (validationVille(ville.value)) {
+            Ville.style.color = "green"
+            VilleErreur.style.visibility = "hidden"
+        }
+        else {
+            VilleErreur.innerHTML = "Le champ doit comperter que des lettre et tiret uniquement"
+            VilleErreur.style.color = "red"
+            VilleErreur.style.marginTop = "10px"
+            event.preventDefault()
+        }
+    }
+    )
+
+    // // création fonctions et validité mail
+
+    function validMail(value) {
+        return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(value)
+    };
+    var mail = document.getElementById("email")
+    let EmailErreur = document.getElementById('EmailErreur')
+
+
+    mail.addEventListener("change", function (event) {
+        if (validMail(mail.value)) {
+            mail.style.color = "green"
+            EmailErreur.style.visibility = "hidden"
+        }
+        else {
+            mail.style.fontFamily = "cursive"
+            EmailErreur.innerHTML = "Veuillez saisir une adresse mail valide (exemple : abcd@mail.com)."
+            EmailErreur.style.color = "red"
+            EmailErreur.style.marginTop = "10px"
+            event.preventDefault()
+        }
+    }
+    )
+    // envoie des données panier + contact au serveur si le formulaire est valide
+    submit = document.getElementById("submit")
+    let submiErreur = document.getElementById("SubmitErreur")
+
+    submit.addEventListener("click", function (event) {
+        if (validationAddress(Nom.value) && validationPreNom(PreNom.value)
+            && validationAddress(adresse.value) && validationVille(ville.value)
+            && (validMail(mail.value))) {
+
+            event.preventDefault();
+
+            //Création de l'objet "contact"
+            let contact = {
+                firstName: Nom.value,
+                lastName: PreNom.value,
+                address: adresse.value,
+                city: ville.value,
+                email: mail.value,
+            }
+            submiErreur.style.visibility = "hidden"
+            console.log(contact)
+        } else {
+
+            event.preventDefault();
+            submiErreur.style.visibility = "visible"
+            submiErreur.innerHTML = "Remplissez Bien le formulaire SVP"
+            submiErreur.style.color = "red"
+            submiErreur.style.marginTop = "10px"
+        }
+    })
 }
-////butoon pour vider le panier
-const ButVidPagnet = document.createElement('button');
-CarteddyDiv.appendChild(ButVidPagnet);
-ButVidPagnet.className = 'icon_SupButton  btn-secondary';
 
-const cartLien = document.createElement('a');
-ButVidPagnet.appendChild(cartLien);
-cartLien.href = "panier.html";
-cartLien.id = "cart_lien"
-cartLien.title = 'Vider le panier ?';
-cartLien.textContent = "Vider mon panier ";
-
-const icon = document.createElement('i');
-cartLien.appendChild(icon);
-icon.className = 'fas fa-trash-alt'
-
-ButVidPagnet.addEventListener("click", function (event) {
-    event.preventDefault();
-    const confirme = window.confirm("voulez vous vider le panier?")
-    if (confirme == true) {
-        window.location.href = "panier.html";
-        localStorage.removeItem('NouveauArticle');
-    } else {
-        window.location.href = "panier.html";
-
-    }
-
-});
-
-///le formulaire
-
-let Monform = document.getElementById("form")
-let monreget = /^[a-zA-Z-\s]+$/
-Monform.addEventListener('submit', function (e) {
-    var InputNom = document.getElementById('nom')
-     InputNom.style.fontFamily="cursive"  
-    InputNom.style.color = "#d31faf"
-    if (InputNom.value.trim() == "") {
-        let NomErreur = document.getElementById('NomErreur')
-        NomErreur.innerHTML = "Le champ nom est requis"
-        NomErreur.style.color = "red"
-        NomErreur.style.marginTop="10px"
-        e.preventDefault()
-
-
-    }
-    else if (monreget.test(InputNom.value) == false) {
-        let NomErreur = document.getElementById('NomErreur')
-        NomErreur.innerHTML = "Le champ doit comperter que des lettre et tiret uniquement"
-        NomErreur.style.color = "red"
-        NomErreur.style.marginTop="10px"
-        e.preventDefault()
-
-    }
-}
-
-)
-let Prenomform = document.getElementById("form")
-Prenomform.addEventListener('submit', function (e) {
-    var InputPreNom = document.getElementById('Prenom')
-    InputPreNom.style.color = "#d31faf"
-    InputPreNom.style.fontFamily="cursive"  
-    if (InputPreNom.value.trim() == "") {
-        let PrenomErreur = document.getElementById('PreNomErreur')
-        PrenomErreur.innerHTML = "Le champ Prénom est requis"
-        PrenomErreur.style.color = "red"
-        PrenomErreur.style.marginTop="10px"
-        e.preventDefault()
-
-
-    } else if (monreget.test(InputPreNom.value) == false) {
-        let PrenomErreur = document.getElementById('PreNomErreur')
-        PrenomErreur.innerHTML = "Le champ doit comperter que des lettre et tiret uniquement"
-        PrenomErreur.style.color = "red"
-        PrenomErreur.style.marginTop="10px"
-        e.preventDefault()
-    }
-}
-)
-Monform.addEventListener('submit', function (e) {
-    var InputAdresse = document.getElementById('adresse')
-     InputAdresse.style.fontFamily="cursive"  
-    InputAdresse.style.color = "#d31faf"
-    if (InputAdresse.value.trim() == "") {
-        let AdressErreur = document.getElementById('AdressErreur')
-        AdressErreur.innerHTML = "Le champ Adresse est requis"
-        AdressErreur.style.color = "red"
-        AdressErreur.style.marginTop="10px"
-        e.preventDefault()
-
-
-    }
-    else if (monreget.test(InputAdresse.value) == false) {
-        let NomErreur = document.getElementById('AdressErreur')
-        AdressErreur.innerHTML = "Le champ doit comperter que des lettre et tiret uniquement"
-        AdressErreur.style.color = "#d31faf"
-        AdressErreur.style.marginTop="10px"
-        e.preventDefault()
-
-    }
-}
-
-)
-
-
-
-adresse
-//validation de la ville 
-let Villeform = document.getElementById("form")
-Villeform.addEventListener('submit', function (e) {
-    var InputVille = document.getElementById('ville')
-    InputVille.style.fontFamily="cursive"  
-    InputVille.style.color = "#d31faf"
-    if (InputVille.value.trim() == "") {
-        let VilleErreur = document.getElementById('VilleErreur')
-        VilleErreur.innerHTML = "Le champ Ville est requis"
-        VilleErreur.style.color = "red"
-        VilleErreur.style.marginTop="10px" 
-        e.preventDefault()
-
-
-    } else if (monreget.test(InputVille.value) == false) {
-        let VilleErreur = document.getElementById('VilleErreur')
-        VilleErreur.innerHTML = "Le champ doit comperter que des lettre et tiret uniquement"
-        VilleErreur.style.color = "red"
-        VilleErreur.style.marginTop="10px" 
-        e.preventDefault()
-    }
-}
-)
-
-
-
-// // création fonctions et validité mail
-
-function validMail(value){
-    return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(value)
-};
-var mail =document.getElementById("email")
-mail.style.color="#d31faf"
- 
-mail.addEventListener("change", function (event) {
-    if (validMail(mail.value)){
-    } else {
-        mail.style.fontFamily="cursive" 
-        
-        let EmailErreur = document.getElementById('EmailErreur')
-        EmailErreur.innerHTML = "Veuillez saisir une adresse mail valide (exemple : abcd@mail.com)."
-        EmailErreur.style.color = "red"
-        EmailErreur.style.marginTop="10px" 
-        event.preventDefault()
-;
-    }
-});
