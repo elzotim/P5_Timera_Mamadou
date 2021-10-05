@@ -1,14 +1,11 @@
-
+window.addEventListener("load" ,function(){
+    console.log("loaded")
+     
+})
 //récupération données localStorage
 let TeddiesLocalStorage = JSON.parse(localStorage.getItem('NouveauArticle'));
 console.log(TeddiesLocalStorage);
 
-/////Declaration de mes variables 
-var InputNom = document.getElementById('nom')
-var InputPreNom = document.getElementById('Prenom')
-var mail = document.getElementById("email")
-var InputAdresse = document.getElementById('adresse')
-var InputVille = document.getElementById('ville')
 
 
 
@@ -278,34 +275,88 @@ else {
     }
     )
     // envoie des données panier + contact au serveur si le formulaire est valide
-    submit = document.getElementById("submit")
+    submit = document.getElementById("form")
     let submiErreur = document.getElementById("SubmitErreur")
 
-    submit.addEventListener("click", function (event) {
+    submit.addEventListener("submit", function (event) {
+        //Création de l'objet "contact"
+        let contact = {
+            firstName: Nom.value,
+            lastName: PreNom.value,
+            address: adresse.value,
+            city: ville.value,
+            email: mail.value,
+        }
         if (validationAddress(Nom.value) && validationPreNom(PreNom.value)
             && validationAddress(adresse.value) && validationVille(ville.value)
             && (validMail(mail.value))) {
-
             event.preventDefault();
-
-            //Création de l'objet "contact"
-            let contact = {
-                firstName: Nom.value,
-                lastName: PreNom.value,
-                address: adresse.value,
-                city: ville.value,
-                email: mail.value,
-            }
             submiErreur.style.visibility = "hidden"
             console.log(contact)
-        } else {
+            // envoie du prix total au localStorage
+            localStorage.setItem('totalPrice', totalPrice);
+            const storagePrice = localStorage.getItem('totalPrice');
+            console.log(storagePrice);
+            // TAbleau pour recuperer les id des nounous qui sons dans le panier 
+            let teddies = [];
+            for (storedTeddy of TeddiesLocalStorage) {
+                let produitId = storedTeddy.teddyId;
+                teddies.push((produitId));
+            }
+            console.log(teddies);
+            
+                const data= {
+                      contact,
+                      teddies
+                }
+            console.log(data)
+            const post = async function (data){
+                try {
+                    let response = await fetch('http://localhost:3000/api/teddies/order', 
+                    {
+                        method: 'POST',
+                        body: JSON.stringify(data),
+                        headers: 
+                        {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    if(response) {
+                        let data = await response.json();
+                        alert(data);
+                        localStorage.setItem("responseOrder", data.orderId);
+                        window.location = "validation.html";
+                        localStorage.removeItem("NouveauArticle");
+                    } else {
+                        event.preventDefault();
+                        console.error('Retour du serveur : ', response.status);
+                        alert('Erreur rencontrée : ' + response.status);
+                    } 
+                } 
+                catch (error) {
+                    alert("Erreur : " + error);
+                } 
+            };
+            post(data);
+                    
+                   
+                 
+                     
+                } 
+            
+             
+       else{
+           
+        event.preventDefault();
+        submiErreur.style.visibility = "visible"
+        submiErreur.innerHTML = "Remplissez Bien le formulaire SVP"
+        submiErreur.style.color = "red"
+        submiErreur.style.marginTop = "10px"
+    }
+       
+       
+       
+    
+    }  )}
 
-            event.preventDefault();
-            submiErreur.style.visibility = "visible"
-            submiErreur.innerHTML = "Remplissez Bien le formulaire SVP"
-            submiErreur.style.color = "red"
-            submiErreur.style.marginTop = "10px"
-        }
-    })
-}
 
