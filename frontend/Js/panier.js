@@ -1,6 +1,6 @@
 window.addEventListener("load" ,function(){
     console.log("loaded")
-     
+    valideLocalstorage()
 })
 //récupération données localStorage
 let TeddiesLocalStorage = JSON.parse(localStorage.getItem('NouveauArticle'));
@@ -8,31 +8,13 @@ console.log(TeddiesLocalStorage);
 
 
 
-
-// création de la page du récapitulatif panier
-
-const teddyMain = document.getElementById('page_Produit');
-const titreRecap = document.createElement("h2")
-teddyMain.appendChild(titreRecap);
-titreRecap.textContent = "Récapitulatif de votre panier"
-
-const teddyDiv = document.createElement("div")
-teddyMain.appendChild(teddyDiv)
-teddyDiv.className = "referenceTeddy"
-
-const CarteddyDiv = document.createElement("div")
-teddyDiv.appendChild(CarteddyDiv)
-CarteddyDiv.className = "Carte_Teddy"
-
-
-const teddyH3 = document.createElement('h3');
-CarteddyDiv.appendChild(teddyH3);
-teddyH3.textContent = "Vos oursons :";
 const table = document.querySelector('table')
 const vidCacher = document.getElementById('vidCacher')
 
 //Lorseque le localstorege est vide??????
+var valideLocalstorage =()=>{
 if (TeddiesLocalStorage == null || TeddiesLocalStorage.length === 0) {
+    const CarteddyDiv=document.getElementById("CarteddyDiv")
     const PanierVide = document.createElement("p")
     CarteddyDiv.appendChild(PanierVide)
     PanierVide.className = "CarteVide";
@@ -56,10 +38,6 @@ else {
         infosTeddy.appendChild(teddiesCart);
         teddiesCart.textContent = lesElements.quantity + " " + lesElements.teddyNom + lesElements.teddyColor;
         ////color et quantique
-
-
-
-
         const tbody = document.createElement("tbody")
         table.appendChild(tbody)
         const tr2 = document.createElement('tr')
@@ -79,7 +57,6 @@ else {
         const teddyImage = document.createElement('div');
         infosTeddy.appendChild(teddyImage);
         teddyImage.className = 'imagteddy';
-        teddyImage.id = i++;
         teddyImage.innerHTML += `<a href="">
          <img src="${lesElements.teddyImage}" class="img-fluid img-thumbnail p-1" alt="${lesElements.name}" width="200px"></a>
 `
@@ -135,15 +112,15 @@ else {
     CarteddyDiv.appendChild(ButVidPagnet);
     ButVidPagnet.className = 'icon_SupButton  btn-secondary';
 
-    const cartLien = document.createElement('a');
-    ButVidPagnet.appendChild(cartLien);
-    cartLien.href = "panier.html";
-    cartLien.id = "cart_lien"
-    cartLien.title = 'Vider le panier ?';
-    cartLien.textContent = "Vider mon panier ";
+    // const cartLien = document.createElement('a');
+    // ButVidPagnet.appendChild(cartLien);
+    // cartLien.href = "panier.html";
+    // cartLien.id = "cart_lien"
+    // cartLien.title = 'Vider le panier ?';
+    ButVidPagnet.textContent = "Vider mon panier ";
 
     const icon = document.createElement('i');
-    cartLien.appendChild(icon);
+    ButVidPagnet.appendChild(icon);
     icon.className = 'fas fa-trash-alt'
 
     ButVidPagnet.addEventListener("click", function (event) {
@@ -310,9 +287,10 @@ else {
                       teddies
                 }
             console.log(data)
+            var API='http://localhost:3000/api/teddies/order'
             const post = async function (data){
                 try {
-                    let response = await fetch('http://localhost:3000/api/teddies/order', 
+                    let response = await fetch(API, 
                     {
                         method: 'POST',
                         body: JSON.stringify(data),
@@ -322,9 +300,9 @@ else {
                         }
                     });
                     if(response) {
-                        let data = await response.json();
-                        alert(data);
-                        localStorage.setItem("responseOrder", data.orderId);
+                        let datas = await response.json();
+                        alert(datas);
+                        localStorage.setItem("responseOrder", datas[0]);
                         window.location = "validation.html";
                         localStorage.removeItem("NouveauArticle");
                     } else {
@@ -359,4 +337,4 @@ else {
     
     }  )}
 
-
+}

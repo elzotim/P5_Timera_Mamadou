@@ -1,3 +1,10 @@
+window.addEventListener("load" ,function(){
+    console.log("loaded")
+    getTedis() 
+
+})
+
+
 
 const searchParams = new URLSearchParams(location.search);
 
@@ -6,7 +13,7 @@ const id_teddies = searchParams.get("_id");
 const teddies_Url = `http://localhost:3000/api/teddies/${id_teddies}`;
 
 //console.log(teddies_Url);
-
+var getTedis =()=>{
 fetch(teddies_Url)
     .then((response) => response.json())
     .then((data) => {
@@ -18,7 +25,18 @@ fetch(teddies_Url)
         listerElemnt(data);
 
 
-    })
+    })}
+   
+let panier=document.getElementById('iconePanier')
+let list_Type=document.getElementById('list_Type')
+list_Type.style.listStyleType="none"
+panier.style.color='Black'
+panier.style.cursor="pointer"
+panier.addEventListener("click", function() {
+    window.location.href = "panier.html";
+  }); 
+
+
 
 function listerElemnt(data) {
     //parcourir la liste 
