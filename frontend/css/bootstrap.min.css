@@ -203,6 +203,11 @@ caption {
 th {
     text-align: inherit;
 }
+#iconePanier ,#lien{
+    background-color: #F3E9F1;
+    color: black;;
+
+}
 label {
     display: inline-block;
     margin-bottom: 0.5rem;
@@ -3183,6 +3188,16 @@ input[type="submit"].btn-block {
     margin: 0.5rem 0;
     overflow: hidden;
     border-top: 1px solid #e9ecef;
+}
+#ordercss,#Price{
+    color:rgb(144, 13, 218);;
+    font-weight: bold;
+}
+#idprix,#ref
+{
+    color:#be7272;
+    font-weight: bold;
+
 }
 .dropdown-item {
     display: block;

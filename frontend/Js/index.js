@@ -3,15 +3,6 @@ window.addEventListener("load" ,function(){
     recupererListe()  
 
 })
-////icone panier
-let panier=document.getElementById('iconePanier')
-let list_Type=document.getElementById('list_Type')
-list_Type.style.listStyleType="none"
-panier.style.color='Black'
-panier.style.cursor="pointer"
-panier.addEventListener("click", function() {
-    window.location.href = "panier.html";
-  }); 
 
 // get de l'api
 var recupererListe=()=>{

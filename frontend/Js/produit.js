@@ -27,14 +27,7 @@ fetch(teddies_Url)
 
     })}
    
-let panier=document.getElementById('iconePanier')
-let list_Type=document.getElementById('list_Type')
-list_Type.style.listStyleType="none"
-panier.style.color='Black'
-panier.style.cursor="pointer"
-panier.addEventListener("click", function() {
-    window.location.href = "panier.html";
-  }); 
+
 
 
 
@@ -63,10 +56,7 @@ function listerElemnt(data) {
                          
                           <div class=" col-6 mt-3 row" id="caracteristique">
                               <h5 class="card-title col-3">${data.name}</h5>
-                          
-                              <div class=" col-sm-5 text-end mt-3">
-                                 <h5 class="card-title">${data.price / 100 + " €"}</h5>
-                                </div>
+                                <h5 class="card-title">${data.price / 100 + " €"}</h5>
                                 
                                 <p class="card-text text-truncate">${data.description}</p>
                                 <select>${options}
