@@ -22,6 +22,10 @@ var valideLocalstorage = () => {
         table.style.visibility = "hidden"
         vidCacher.style.visibility = "hidden"
         PanierVide.textContent = "Votre Panier est vide pour Linstant"
+        /******le button de retour */
+        var bit=document.getElementById('back')
+        bit.style.visibility='visible'
+        
     }
     else {
         console.log("le locale storage n'est pas vide")
