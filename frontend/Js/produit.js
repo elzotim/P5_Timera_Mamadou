@@ -1,6 +1,6 @@
-window.addEventListener("load" ,function(){
+window.addEventListener("load", function () {
     console.log("loaded")
-    getTedis() 
+    getTedis()
 
 })
 
@@ -13,36 +13,28 @@ const id_teddies = searchParams.get("_id");
 const teddies_Url = `http://localhost:3000/api/teddies/${id_teddies}`;
 
 //console.log(teddies_Url);
-var getTedis =()=>{
-fetch(teddies_Url)
-    .then((response) => response.json())
-    .then((data) => {
-        const product = data;
-        console.log(product);
-        console.log(product.name);
-        console.log(product._id);
-        console.log(product.price);
-        listerElemnt(data);
-
-
-    })}
-   
-
-
-
-
+var getTedis = () => {
+    fetch(teddies_Url)
+        .then((response) => response.json())
+        .then((data) => {
+            const product = data;
+            console.log(product);
+            console.log(product.name);
+            console.log(product._id);
+            console.log(product.price);
+            listerElemnt(data);
+            selectionTeddies(data)
+        })
+}
+/*affichage des elelemnt*/
 function listerElemnt(data) {
     //parcourir la liste 
     console.log(data)
-
     const card = document.getElementById("element");
     let options = "";
     for (color of data.colors) {
         console.log(color);
         options += `<option value="${color}">${color}</option>`
-
-
-
     }
     card.innerHTML += `
           <div class="  ">
@@ -62,10 +54,11 @@ function listerElemnt(data) {
                                 <select>${options}
                                 </select>
                              </div>   
-                            
                   </div>
               </div>
           </div>`;
+}
+function selectionTeddies(data) {
     //creation de l'element button dans l'element id=carateristique   
     const caracteristique = document.getElementById("caracteristique")
     let AJouterTeddy = document.createElement("button");
@@ -75,14 +68,9 @@ function listerElemnt(data) {
     AJouterTeddy.id = 'submit';
     AJouterTeddy.textContent = "Ajouter au panier";
     AJouterTeddy.className = "btn btn-secondary"
-
-
-
-    //
     AJouterTeddy.addEventListener("click", function (event) {
         console.log("vous venez d'ajouter");
         event.preventDefault();
-
         //  les donnés  teddy à envoyer dans localStorage
         const select = document.querySelector('select');
         console.log()
@@ -94,8 +82,6 @@ function listerElemnt(data) {
             teddyColor: select.value,
             teddyPrice: data.price / 100,
         };
-
-
         let HisTeddies = JSON.parse(localStorage.getItem('NouveauArticle'));
         if (HisTeddies) {
             const envoiePagner = window.confirm("Souhaitez-vous ajouté " + teddiesChoisie.teddyNom + " " + ' au panier ?')
@@ -118,12 +104,8 @@ function listerElemnt(data) {
                 window.location.href = "panier.html";
             } else {
                 window.location.href = "index.html";
-
             }
         }
     }
     );
-
-
-
 }

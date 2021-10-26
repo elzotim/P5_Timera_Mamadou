@@ -1,7 +1,6 @@
 window.addEventListener("load" ,function(){
     console.log("loaded")
     recupererListe()  
-
 })
 
 // get de l'api

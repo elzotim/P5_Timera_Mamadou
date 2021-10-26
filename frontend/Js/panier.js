@@ -5,16 +5,11 @@ window.addEventListener("load", function () {
 //récupération données localStorage
 let TeddiesLocalStorage = JSON.parse(localStorage.getItem('NouveauArticle'));
 console.log(TeddiesLocalStorage);
-
-
-
 const table = document.querySelector('table')
 const vidCacher = document.getElementById('vidCacher')
 const CarteddyDiv = document.getElementById("CarteddyDiv")
-
 //Lorseque le localstorege est vide??????
 var valideLocalstorage = () => {
-   
     if (TeddiesLocalStorage == null || TeddiesLocalStorage.length === 0) {
         const PanierVide = document.createElement("p")
         CarteddyDiv.appendChild(PanierVide)
@@ -25,20 +20,15 @@ var valideLocalstorage = () => {
         /******le button de retour */
         var bit=document.getElementById('back')
         bit.style.visibility='visible'
-        
     }
     else {
         console.log("le locale storage n'est pas vide")
-
         // si des éléments sont présents dans le panier : récupération des éléments du panier
-        let i = 0;
-
         for (lesElements of TeddiesLocalStorage) {
             console.log(lesElements)
             const infosTeddy = document.createElement('div');
             CarteddyDiv.appendChild(infosTeddy);
             infosTeddy.className = 'infosTeddy';
-
             const teddiesCart = document.createElement('p');
             infosTeddy.appendChild(teddiesCart);
             teddiesCart.textContent = lesElements.teddyNom +" "+ lesElements.teddyColor;
@@ -103,20 +93,14 @@ var valideLocalstorage = () => {
         total.textContent = "Montant total = " + totalPrice + " €";
         const tfoot = document.getElementById("MontantTotal")
         tfoot.textContent = totalPrice + " €"
-
-
         ////butoon pour vider le panier
         const ButVidPagnet = document.createElement('button');
         CarteddyDiv.appendChild(ButVidPagnet);
         ButVidPagnet.className = 'icon_SupButton  btn-secondary';
-
-
         ButVidPagnet.textContent = "Vider mon panier ";
-
         const icon = document.createElement('i');
         ButVidPagnet.appendChild(icon);
         icon.className = 'fas fa-trash-alt'
-
         ButVidPagnet.addEventListener("click", function (event) {
             event.preventDefault();
             const confirme = window.confirm("voulez vous vider le panier?")
@@ -125,15 +109,9 @@ var valideLocalstorage = () => {
                 localStorage.removeItem('NouveauArticle');
             } else {
                 window.location.href = "panier.html";
-
             }
-
         });
-
         ///le formulaire
-
-        ///le formulaire
-
         /////////////////Nom//////////////// valide///////////////////////////
         function validationNom(value) {
             return /^[A-Z-a-z\s]{5,80}$/.test(value)
@@ -141,13 +119,11 @@ var valideLocalstorage = () => {
         Nom = document.getElementById('nom')
         let NomErreur = document.getElementById('NomErreur')
         Nom.addEventListener("change", function (event) {
-            if (validationAddress(Nom.value)) {
+            if (validationNom(Nom.value)) {
                 Nom.style.color = "green"
                 NomErreur.style.visibility = "hidden"
-
             }
             else {
-
                 NomErreur.innerHTML = "Le champ doit comporter que des lettres et chiffre "
                 NomErreur.style.color = "red"
                 NomErreur.style.marginTop = "10px"
@@ -159,30 +135,24 @@ var valideLocalstorage = () => {
         function validationPreNom(value) {
             return /^[A-Z-a-z\s]{5,80}$/.test(value)
         };
-
         PreNom = document.getElementById('Prenom')
         let PreNomErreur = document.getElementById('PreNomErreur')
         PreNom.addEventListener("change", function (event) {
             if (validationPreNom(PreNom.value)) {
                 PreNom.style.color = "green"
                 PreNomErreur.style.visibility = "hidden"
-
             }
             else {
-
                 PreNomErreur.innerHTML = "Le champ doit comperter que des lettre et chiffre "
                 PreNomErreur.style.color = "red"
                 PreNomErreur.style.marginTop = "10px"
                 event.preventDefault()
             }
-
         }
-
         )
         // Vérification de la validité de l'adresse
         function validationAddress(value) {
             return /^[A-Z-a-z-0-9\s]{5,80}$/.test(value)
-
         };
         let AdressErreur = document.getElementById('AdressErreur')
         adresse = document.getElementById('adresse')
@@ -192,14 +162,12 @@ var valideLocalstorage = () => {
                 AdressErreur.style.visibility = "hidden"
 
             } else {
-
                 AdressErreur.innerHTML = "Le champ doit comperter que des lettre et chiffre "
                 AdressErreur.style.color = "red"
                 AdressErreur.style.marginTop = "10px"
                 event.preventDefault()
             }
         }
-
         )
         //validation de la ville 
 
@@ -221,7 +189,6 @@ var valideLocalstorage = () => {
             }
         }
         )
-
         // // création fonctions et validité mail
 
         function validMail(value) {
@@ -295,7 +262,8 @@ var valideLocalstorage = () => {
                             });
                         if (response) {
                             let datas = await response.json();
-                            localStorage.setItem("responseOrder", products);
+                            console.log(datas)
+                            localStorage.setItem("responseOrder", datas.orderId);
                             localStorage.removeItem("NouveauArticle");
                             window.location = "validation.html";
                         } else {
