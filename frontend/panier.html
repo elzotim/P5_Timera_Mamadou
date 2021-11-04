@@ -15,26 +15,7 @@
   <link rel="stylesheet" href="/frontend/css/bootstrap.min.css">
   <script src="https://kit.fontawesome.com/e1e907064b.js" crossorigin="anonymous"></script>
 </head>
-<style>
-  p,
-  h1 {
-    font-family: 'Times New Roman', Times, serif;
-  }
 
-  .mamama {
-    background-color: #F3E9F1;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-
-  }
-
-  body {
-    text-align: center;
-    background-color: #F3E9F1;
-  }
-</style>
 
 <body>
   <header>
@@ -64,64 +45,71 @@
           <th scope="col">Couleur</th>
         </tr>
       </thead>
+      <tfoot>
+        <tr>
+          <th>Totals</th>
+          <th id="tfoot1"></th>
+          <th></th>
+        </tr>
+      </tfoot>
+      <tbody id="tbody">
+      </tbody>
 
-      <tfoot class="tfoot">
-        <td>Total</td>
-        <td id="MontantTotal"></td>
     </table>
+  </div>
 
-
-    <div class="container-sm" id="vidCacher">
-      <h1>Valider la Commande</h1>
-      <form action="" id="form" target="_blanck">
-        <div class="row mb-4">
-          <div class="col">
-            <input type="text" name="nom" id="nom" class="form-control" placeholder="Nom">
-            <span id="NomErreur"></span>
-          </div>
-          <div class="col">
-            <input type="text" name="prenom" id="Prenom" class="form-control" placeholder="Prénom">
-            <span id="PreNomErreur"></span>
-          </div>
-
+  <div class="container-sm" id="vidCacher">
+    <h1>Valider la Commande</h1>
+    <form  id="form" >
+      <div class="row mb-4">
+        <div class="col">
+          <input type="text" name="nom" id="nom" class="form-control" placeholder="Nom">
+          <span id="NomErreur"></span>
         </div>
-        <div class="row mb-4">
+        <div class="col">
+          <input type="text" name="prenom" id="Prenom" class="form-control" placeholder="Prénom">
+          <span id="PreNomErreur"></span>
+        </div>
+
+      </div>
+      <div class="row mb-4">
+        <div class="col">
+          <input id="email" type="email" class="form-control" placeholder="E-mail">
+          <span id="EmailErreur"></span>
+        </div>
+      
+        
           <div class="col">
-            <input id="email" type="email" class="form-control" placeholder="E-mail">
-            <span id="EmailErreur"></span>
+            <input type="text" id="adresse" name="adress" class="form-control" placeholder="Adresse">
+            <span id="AdressErreur"></span>
           </div>
 
-          <div class="row mb-4">
-            <div class="col">
-              <input type="text" id="adresse" name="adress" class="form-control" placeholder="Adresse">
-              <span id="AdressErreur"></span>
-            </div>
-
-            <div class="col">
-              <input type="text" name="ville" id="ville" class="form-control row" placeholder="ville">
-              </br> <span id="VilleErreur"></span>
-            </div>
+          <div class="col">
+            <input type="text" name="ville" id="ville" class="form-control row" placeholder="ville">
+          <span id="VilleErreur"></span>
           </div>
-          <div class="form-group form">
-            <button type="submit" class="btn btn-secondary btn-lg desc" name="submit" id="submit">valider la
-              commande</button>
-            <br><span id="SubmitErreur"></span>
-          </div>
-      </form>
-    </div>
-    <div class="back" id='back'>
-      <button class="btn btn-secondary " onclick="window.location.href = 'index.html';">Retour à l'accueil</button>
-    </div>
-
-    <footer>
-
-    </footer>
+        </div>
+        <div class="form-group form">
+          <button type="submit" class="btn btn-secondary btn-lg desc" name="submit" id="submit">valider la
+            commande</button>
+          <br><span id="SubmitErreur"></span>
+        </div>
+    </form>
+  </div>
+  <div class="back" id='back'>
+    <button class="btn btn-secondary " onclick="window.location.href = 'index.html';">Retour à l'accueil</button>
+  </div>
 
 
-    <script type="javascript" src="./Js/jquery-3.4.1.slim.min.js"></script>
-    <script type="javascript" src="./Js/popper.min.js"></script>
-    <script type="javascript" src="./Js/bootstrap.min.js"></script>
-    <script type='text/javascript' src="./Js/panier.js"></script>
+
+
+</body>
+
+
+<script type="javascript" src="./Js/jquery-3.4.1.slim.min.js"></script>
+<script type="javascript" src="./Js/popper.min.js"></script>
+<script type="javascript" src="./Js/bootstrap.min.js"></script>
+<script type='text/javascript' src="./Js/panier.js"></script>
 
 </body>
 

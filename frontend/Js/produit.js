@@ -6,22 +6,15 @@ window.addEventListener("load", function () {
 
 
 
-const searchParams = new URLSearchParams(location.search);
-
-const id_teddies = searchParams.get("_id");
-
-const teddies_Url = `http://localhost:3000/api/teddies/${id_teddies}`;
 
 //console.log(teddies_Url);
 var getTedis = () => {
+    const searchParams = new URLSearchParams(location.search);
+const id_teddies = searchParams.get("_id");
+const teddies_Url = `http://localhost:3000/api/teddies/${id_teddies}`;
     fetch(teddies_Url)
         .then((response) => response.json())
         .then((data) => {
-            const product = data;
-            console.log(product);
-            console.log(product.name);
-            console.log(product._id);
-            console.log(product.price);
             listerElemnt(data);
             selectionTeddies(data)
         })
