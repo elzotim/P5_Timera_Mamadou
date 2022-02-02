@@ -1,6 +1,7 @@
 window.addEventListener("load" ,function(){
     console.log("loaded")
-    recupererListe()  
+    recupererListe()  ;
+    quantitéProduit()
 })
 
 // get de l'api
@@ -49,5 +50,20 @@ function listerTeddies(data) {
           </div>
       </div>`;
     }
+  //////////afficher qte par 
 }
 
+//////////afficher qte par 
+let HisTeddies = JSON.parse(localStorage.getItem('NouveauArticle'));
+var quantitéProduit =()=>{
+let teddisQuantiteTotlal =[];
+
+if (HisTeddies){
+    HisTeddies.forEach((teddies)=>{
+        teddisQuantiteTotlal.push(teddies.quatity)
+        console.log(teddisQuantiteTotlal);
+        document.getElementById("qte_in_basket").textContent=`${eval(teddisQuantiteTotlal.join("+"))}`;
+        ;
+    })
+}
+}

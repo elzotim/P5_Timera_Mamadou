@@ -1,7 +1,6 @@
 window.addEventListener("load", function () {
     console.log("loaded")
     getTedis()
-
 })
 
 
@@ -23,82 +22,119 @@ const teddies_Url = `http://localhost:3000/api/teddies/${id_teddies}`;
 function listerElemnt(data) {
     //parcourir la liste 
     console.log(data)
-    const card = document.getElementById("element");
+    const card = document.getElementById("form-id");
     let options = "";
-    for (color of data.colors) {
-        console.log(color);
-        options += `<option value="${color}">${color}</option>`
+    var i = 0;
+    for (color of data.colors) 
+    {
+        if(i == 0){
+            options += `<option value="${color}">${color} (Couleur par defaut)</option>`;
+        }else{
+            options += `<option value="${color}">${color}</option>`
+        }
     }
-    card.innerHTML += `
-          <div class="  ">
-              <div class="card border bg-light  p-3 mb-5 bg-body rounded">
-                  <div class="card-body ">
-                      <div class="row">
-                         <div class="col-6">
-                            <a href="">
-                            <img src="${data.imageUrl}" class="img-fluid img-thumbnail p-1" alt="${data.name}"></a>
-                          </div>
-                         
-                          <div class=" col-6 mt-3 row" id="caracteristique">
-                              <h5 class="card-title col-3">${data.name}</h5>
-                                <h5 class="card-title">${data.price / 100 + " €"}</h5>
-                                
-                                <p class="card-text text-truncate">${data.description}</p>
-                                <select>${options}
-                                </select>
-                             </div>   
-                  </div>
-              </div>
-          </div>`;
+    card.insertAdjacentHTML('afterbegin', `
+    <div class="  " style="margin:auto;">
+        <div class="card border bg-light  p-3 mb-5 bg-body rounded" style="margin:auto;">
+            <div class="card-body ">
+                <div class="row">
+                    <div class="col-6">
+                        <img src="${data.imageUrl}" class="img-fluid img-thumbnail p-1" alt="${data.name}">
+                    </div>
+                    <div class=" col-6 mt-3 row" id="caracteristique">
+                        <span class="card-title">${data.name}</span>
+                        <span class="card-title">${data.price / 100 + " €"}</span>
+                        <p class="card-text text-truncate">${data.description}</p>
+                        <select name="color" id="color-id">${options}</select>
+                        <select name="num-product" id="num-product-id">
+                            <option value="0">Selectionnez la quantité</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                        </select>
+                        <button class="btn btn-secondary" id="btn-basket" type="submit" name="ajout">Ajouter au panier</button>
+                        <div id="output-id" ></div>
+                    </div>   
+                </div>
+            </div>
+        </div>
+    </div>`);
 }
+let HisTeddies = JSON.parse(localStorage.getItem('NouveauArticle'));
 function selectionTeddies(data) {
     //creation de l'element button dans l'element id=carateristique   
-    const caracteristique = document.getElementById("caracteristique")
-    let AJouterTeddy = document.createElement("button");
-    caracteristique.appendChild(AJouterTeddy);
-    AJouterTeddy.type = 'submit';
-    AJouterTeddy.name = 'Ajourt';
-    AJouterTeddy.id = 'submit';
-    AJouterTeddy.textContent = "Ajouter au panier";
-    AJouterTeddy.className = "btn btn-secondary"
-    AJouterTeddy.addEventListener("click", function (event) {
+    const caracteristique = document.getElementById("form-id")
+
+       caracteristique.addEventListener("submit", function (event) {
         console.log("vous venez d'ajouter");
         event.preventDefault();
         //  les donnés  teddy à envoyer dans localStorage
-        const select = document.querySelector('select');
         console.log()
         let teddiesChoisie = {
             teddyImage: data.imageUrl,
             teddyNom: data.name,
             teddyId: data._id,
-            quatity: 1,
-            teddyColor: select.value,
+            quatity: document.querySelector('#num-product-id').value,
+            teddyColor: document.querySelector('#color-id').value,
             teddyPrice: data.price / 100,
         };
+        var quatity= document.querySelector('#num-product-id').value;
+       
+
         let HisTeddies = JSON.parse(localStorage.getItem('NouveauArticle'));
-        if (HisTeddies) {
+        if (HisTeddies && quatity != 0)
+        
+         {
+           
             const envoiePagner = window.confirm("Souhaitez-vous ajouté " + teddiesChoisie.teddyNom + " " + ' au panier ?')
-            if (envoiePagner == true) {
+            if (envoiePagner == true && quatity != 0) {
+                console.log(quatity);
                 HisTeddies.push(teddiesChoisie);
                 localStorage.setItem('NouveauArticle', JSON.stringify(HisTeddies));
-                window.location.href = "panier.html";
+                document.querySelector('#output-id').innerHTML =   "Le produit " + teddiesChoisie.teddyNom + `(quatité ${teddiesChoisie.quatity})  a bien été ajouté au panier`;
+                HisTeddies[data.teddyId] = data;
             } else {
-                window.location.href = "index.html";
+                document.querySelector('#output-id').innerHTML = "Veuillez selectionner la quatité svp.";
 
             }
         }
         else {
-            HisTeddies = [];
+            HisTeddies = []   ;
             const envoiePagner = window.confirm("Souhaitez-vous ajouté " + teddiesChoisie.teddyNom + " " + ' au panier ?')
-
-            if (envoiePagner == true) {
+           
+            if (envoiePagner == true && quatity !=0) {
                 HisTeddies.push(teddiesChoisie);
                 localStorage.setItem('NouveauArticle', JSON.stringify(HisTeddies));
                 window.location.href = "panier.html";
             } else {
-                window.location.href = "index.html";
+        document.querySelector('#output-id').innerHTML = "Veuillez selectionner la quatité svp.";
             }
         }
     }
     );
 }
+console.log(HisTeddies);
+ /**
+         * -----------------------------------------------------
+         * Afficharge du nombre de produit dans le panier
+         * -----------------------------------------------------
+         * 
+         */
+let teddisQuantiteTotlal =[];
+
+if (HisTeddies){
+    HisTeddies.forEach((teddies)=>{
+        teddisQuantiteTotlal.push(teddies.quatity)
+        console.log(teddisQuantiteTotlal);
+        document.getElementById("qte_in_basket").textContent=`${eval(teddisQuantiteTotlal.join('+'))}`;
+
+    })
+}
+
+
+
+
