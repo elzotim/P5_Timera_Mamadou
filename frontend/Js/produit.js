@@ -34,34 +34,52 @@ function listerElemnt(data) {
         }
     }
     card.insertAdjacentHTML('afterbegin', `
-    <div class="  " style="margin:auto;">
-        <div class="card border bg-light  p-3 mb-5 bg-body rounded" style="margin:auto;">
-            <div class="card-body ">
-                <div class="row">
-                    <div class="col-6">
-                        <img src="${data.imageUrl}" class="img-fluid img-thumbnail p-1" alt="${data.name}">
-                    </div>
-                    <div class=" col-6 mt-3 row" id="caracteristique">
-                        <span class="card-title">${data.name}</span>
-                        <span class="card-title">${data.price / 100 + " €"}</span>
-                        <p class="card-text text-truncate">${data.description}</p>
-                        <select name="color" id="color-id">${options}</select>
-                        <select name="num-product" id="num-product-id">
-                            <option value="0">Selectionnez la quantité</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                        </select>
-                        <button class="btn btn-secondary" id="btn-basket" type="submit" name="ajout">Ajouter au panier</button>
-                        <div id="output-id" ></div>
-                    </div>   
-                </div>
+    <div class="container-xl block">
+      
+        <div class="row">
+          <div class="col-6">
+            <img
+              src="${data.imageUrl}"
+              class="img-fluid img-thumbnail p-1"
+              alt="${data.name}"
+            />
+          </div>
+          <div class="col-6 d-flex flex-column bd-highlight mb-3" id="caracteristique">
+            <div class="row hauteur " height=100>
+              <div class="col def">${data.name}</div>
+              <div class="col def text-center">${data.price / 100 + " €"}</div>
             </div>
-        </div>
+
+            <p  >
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+              Voluptate nam quia optlam suscipit a omnis, distinctio placeat
+              
+            </p>
+            <select class=" form-select form-select-sm hauteur" name="color" id="color-id">
+              ${options}
+            </select>
+            <select class="row form-select form-select-sm hauteur " name="num-product" id="num-product-id" >
+              <option value="0">Selectionnez la quantité</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+            </select>
+            <button 
+              class="btn btn-secondary text-center  "
+              id="btn-basket"
+              type="submit"
+              name="ajout"
+            >
+              Ajouter au panier
+            </button>
+            <div id="output-id"></div>
+          </div>
+      
+      </div>
     </div>`);
 }
 let HisTeddies = JSON.parse(localStorage.getItem('NouveauArticle'));

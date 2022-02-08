@@ -59,9 +59,11 @@ nav,
 section {
     display: block;
 }
+@import url('https://fonts.googleapis.com/css2?&family=Poppins:wght@400&display=swap');
+
 body {
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+    font-family:  Poppins "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
         "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     font-size: 1rem;
     font-weight: 400;
@@ -152,8 +154,9 @@ a {
     color: white;
     font-weight: bold;
     text-decoration: none;
-    background-color: #6c757d;
+    background-color: #776c7d;
     border-color: #6c757d;
+
 }
 a:hover {
     color: #0056b3;
@@ -2409,7 +2412,7 @@ textarea.form-control.is-invalid {
     }
 }
 .btn:hover {
-    color: #212529;
+   
     text-decoration: none;
 }
 .btn.focus,
@@ -2461,14 +2464,13 @@ fieldset:disabled a.btn {
     box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
 }
 .btn-secondary {
-    color: #fff;
-    background-color: #6c757d;
+    color: black;
+    font-weight: 500;
     border-color: #6c757d;
+    background-color: blueviolet;
 }
 .btn-secondary:hover {
     color: #fff;
-    background-color: #5a6268;
-    border-color: #545b62;
 }
 .btn-secondary.focus,
 .btn-secondary:focus {

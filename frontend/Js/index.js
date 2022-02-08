@@ -30,18 +30,17 @@ function listerTeddies(data) {
         
         //const price = convertPrice(teddies.price);
         card.innerHTML += `
-      <div class="col-sm- col-md-4 col-lg-4 pb-3  ">
+      <div class="col-lg-4 pb-6 ">
           <div class="card border bg-light  p-3 mb-5 bg-body rounded">
               <div class="card-body ">
                   <div class="row">
                       <a href="">
-                      <img src="${teddies.imageUrl}" class="img-fluid img-thumbnail p-1" alt="${teddies.name}"></a>
+                      <img src="${teddies.imageUrl}" class="img-fluid img-thumbnail  " alt="${teddies.name}"></a>
 
-                      <div class="col-6 col-sm-7 mt-3" >
-                          <h5 class="card-title">${teddies.name}</h5>
-                      </div>
-                      <div class="col-6 col-sm-5 text-end mt-3">
-                          <h5 class="card-title">${teddies.price/100 +" €"}</h5>
+                      <div class="col-6  mt-3 row" >
+                          <h5 class=" col-9 ">${teddies.name}</h5>
+                      
+                          <h5 class="   text-center">${teddies.price/100 +" €"}</h5>
                       </div>
                   </div>
                   <p class="card-text text-truncate">${teddies.description}</p>

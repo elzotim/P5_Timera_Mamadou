@@ -1,17 +1,12 @@
 window.addEventListener("load", function () {
     console.log("loaded")
-    showBasketNum()
     valideLocalstorage()
 
 })
 //récupération données localStorage
 let TeddiesLocalStorage = JSON.parse(localStorage.getItem('NouveauArticle'));
 console.log(TeddiesLocalStorage.length);
-showBasketNum=()=>
-     {
-        document.querySelector("#qte_in_basket").innerHTML = TeddiesLocalStorage.length;
 
-     };
 // //Lorseque le localstorege est vide??????
 var valideLocalstorage = () => {
     if (TeddiesLocalStorage == null || TeddiesLocalStorage.length === 0) {
@@ -56,7 +51,7 @@ function afficherListeProduit()
           <td scope="col">${lesElements.teddyColor}</td>
           <td scope="col">${lesElements.teddyPrice} €</td>
           <td scope="col">${lesElements.quatity*lesElements.teddyPrice}€</td>
-          <td scope="col" style="text-align: right;"  > <button id="product-id" ><i   class="fas fa-trash remove-product-id"></i><button/></td>
+          <td scope="col" style="text-align: right;"  > <i id="product-id"   class="fas fa-trash remove-product-id"></i></td>
         </tr>`;
 
       
@@ -77,10 +72,8 @@ function afficherListeProduit()
 
     // chargement des  statistiques
     tfoot.innerHTML = `<tr>
-    <th colspan="3">Totals</th>
-    <th ></th>
+    <th colspan="5">Totals</th>
     <th >${qtetotal } €</th>
-    <th ></th>
     </tr>`;
 }
 /***
@@ -239,7 +232,8 @@ submit.addEventListener("submit", function (event) {
     console.log(contact);
     if (validationAddress(Nom.value) && validationPreNom(PreNom.value)
         && validationAddress(adresse.value) && validationVille(Ville.value)
-        && (validMail(mail.value))) {
+        && (validMail(mail.value))) 
+        {
             let calculePrix = []
             for (elementDeTeddy of TeddiesLocalStorage) {
                 let PrixArticle = elementDeTeddy.teddyPrice;
@@ -303,6 +297,8 @@ submit.addEventListener("submit", function (event) {
         submiErreur.innerHTML = "Remplissez Bien le formulaire SVP"
         submiErreur.style.color = "red"
         submiErreur.style.marginTop = "10px"
+       
+
     }
 })
 
