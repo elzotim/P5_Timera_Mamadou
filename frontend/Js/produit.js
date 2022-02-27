@@ -117,7 +117,7 @@ function selectionTeddies(data) {
                 HisTeddies[data.teddyId] = data;
             } else {
                 document.querySelector('#output-id').innerHTML = "Veuillez selectionner la quatité svp.";
-
+  
             }
         }
         else {
