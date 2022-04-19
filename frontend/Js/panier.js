@@ -1,109 +1,112 @@
 window.addEventListener("load", function () {
     console.log("loaded")
-    valideLocalstorage()
-
+    AffichageElement();
 })
-//récupération données localStorage
-let TeddiesLocalStorage = JSON.parse(localStorage.getItem('NouveauArticle'));
-console.log(TeddiesLocalStorage);
-
-// //Lorseque le localstorege est vide??????
-var valideLocalstorage = () => {
-    if (TeddiesLocalStorage == null || TeddiesLocalStorage.length === 0) {
-        panierVide()
-
-    }
-    else {
-        console.log("le locale storage n'est pas vide")
-        // si des éléments sont présents dans le panier : récupération des éléments du panier
-        afficherListeProduit()
-
-    }
-}
-var panierVide = () => {
-    const tbody = document.querySelector('#tbody-id');
-
-
-    tbody.insertAdjacentHTML('afterbegin', `<tr><td colspan="6" style="text-align:center;">Le panier est vide</td></tr>`);
-
-    tbody.insertAdjacentHTML('afterbegin', data);
-
-}
-
-
-////variable globale
-const infosTeddy = document.createElement('div');
-/*///////////*/
-function afficherListeProduit() {
-    const tbody = document.querySelector('#tbody-id');
-    const tfoot = document.querySelector('#tfoot-id');
-
-    var data = "";
-    var prixtotal = 0;
-    var qtetotal = 0;
-
-    var y = 1;
-    for (lesElements of TeddiesLocalStorage) {
-        data += `<tr data-columns="${lesElements.teddyId}">
-          <td scope="col">${y}</td>
-          <td scope="col">${lesElements.teddyNom}</td>
-          <td scope="col">${lesElements.teddyColor}</td>
-          <td scope="col">${lesElements.teddyPrice} €</td>
-          <td scope="col">${lesElements.quatity * lesElements.teddyPrice}€</td>
-          <td scope="col" style="text-align: right;"  > <i id="product-id"   class="fas fa-trash btn  remove-product-id"></i></td>
-        </tr>`;
-        console.log(lesElements.teddyId);
-
-        qtetotal += Number(lesElements.quatity * lesElements.teddyPrice);
-
-        y++;
-    }
-
-    // chargement de la liste des produit
-    if (lesElements == "") {
-        const tbody = document.getElementById('tbody-id');
-
-        tbody.insertAdjacentHTML('afterbegin', `<tr><td colspan="6" style="text-align:center;">Le panier est vide</td></tr>`);
+//Variable du tableau présent dans le localstorage//
+let ProduitLocalstorage = localStorage.getItem("NouveauArticle")
+    ? JSON.parse(localStorage.getItem("NouveauArticle"))
+    : [];
+console.log(ProduitLocalstorage);
+//Sélection de la classe ou injecter le code html
+//Affichage des produits du panier
+const positionElement = document.querySelector("#cart__produit");
+function AffichageElement() {
+    if (ProduitLocalstorage.length !== 0) {
+        let ProduitPanier = "";
+        for (let a = 0; a < ProduitLocalstorage.length; a++) {
+            ProduitPanier += `
+    <article class="carte_Objet" data-index = "${a}">
+   <div class="carte_Objet__img">
+     <img src="${ProduitLocalstorage[a].teddyImage}" alt="${ProduitLocalstorage[a].alt}">
+   </div>
+   <div class="carte_Objet__content">
+     <div class="carte_Objet__content__TitrePrix">
+       <h2>${ProduitLocalstorage[a].teddyNom} ${ProduitLocalstorage[a].teddyColor
+                }</h2>
+       <p class="itemTotal">${ProduitLocalstorage[a].teddyPrice * ProduitLocalstorage[a].quantity
+                } euros</p>
+     </div>
+     <div class="carte_Objet__content">
+       <div class="carte_Objet__content__quantity">
+         <p>Qté : </p>
+         <input type="number" class=" AffichageQuantite" name=" AffichageQuantite" min="1" max="100" value="${ProduitLocalstorage[a].quantity
+                }">
+       </div>
+       <div class="carte_Objet__content__supprim">
+       <span>Supprimé: </span>
+       <span class="deleteItem">
+       <i id="product-id"   class="fas fa-trash btn"></i></span>
+       </div>
+     </div>
+   </div>
+ </article>`;
+        }
+        positionElement.innerHTML = ProduitPanier;
+        displayTotal();
+        updateItem();
     } else {
-        tbody.insertAdjacentHTML('afterbegin', data);
+        var panierVide=document.getElementById("panierVide")
+        panierVide.textContent="Votre panier est vide pour l'instant"
+        console.log("je  suis vide");
     }
-
-
-    // chargement des  statistiques
-    tfoot.innerHTML = `<tr>
-    <th colspan="5">Totals</th>
-    <th >${qtetotal} €</th>
-    </tr>`;
 }
-/***
- * ---------------------------------------------------------
- *  Suppression des produit du panier
- * ---------------------------------------------------------
- * 
- * si l'utilisateur souhaite retirer un produit du panier
- */
-///selection de tous les buttons sup 
-window.addEventListener("load", function () {
-    var SuppButton = document.querySelectorAll(".remove-product-id")
-    /// finn selection de tous les buttons sup 
-    console.log(SuppButton.length);
-    for (let i = 0; i < SuppButton.length; i++) {
-        var teddies_id = (TeddiesLocalStorage[i].teddyId);
-        SuppButton[i].addEventListener('click', (event) => {
-            event.preventDefault();
-            const neWlist = TeddiesLocalStorage.filter((teddy) =>
-                teddy.teddyId !== teddies_id
-            );
-            localStorage.setItem('NouveauArticle', JSON.stringify(neWlist));
-            console.log(neWlist);
-            alert('Cet article a bien été supprimé !');
-            window.location.href = "panier.html"
-        })
-
+//fonction pour la mise à jour du total du prix et des Qté d'articles
+function displayTotal() {
+    let PrixTotalCalcule = [];
+    let QuantiteTotaleCalcul = [];
+    for (let t = 0; t < ProduitLocalstorage.length; t++) {
+        let prixTotalPanier = ProduitLocalstorage[t].teddyPrice;
+        let quantitePanier = ProduitLocalstorage[t].quantity;
+        PrixTotalCalcule.push(prixTotalPanier * quantitePanier);
+        QuantiteTotaleCalcul.push(quantitePanier);
+        console.log(QuantiteTotaleCalcul);
     }
-})
 
-// ///le formulaire
+    const reducer = (accumulator, currentValue) => accumulator + currentValue;
+    const PrixTotal = PrixTotalCalcule.reduce(reducer, 0);
+    const displayTotalPrice = document.getElementById("PrixTotal");
+    displayTotalPrice.innerHTML = PrixTotal;
+    const displayQuantiteTotale = document.getElementById("QuantiteTotale");
+    displayQuantiteTotale.innerHTML =`${eval(QuantiteTotaleCalcul.join("+"))}`;
+    const QtéPanier = document.getElementById("qte_in_basket");
+    QtéPanier.innerHTML= `${eval(QuantiteTotaleCalcul.join("+"))}`
+}
+//Suppression et modification du nombre d'article
+let  AffichageQuantite = document.querySelector(".AffichageQuantite");
+function updateItem() {
+    let article = document.querySelectorAll(".carte_Objet");
+
+    for (let n = 0; n < article.length; n++) {
+        const btnDelete = article[n].querySelector(".deleteItem");
+        btnDelete.addEventListener("click", (e) => {
+            e.preventDefault();
+            const elt = e.target.closest("article");
+            const index = elt.dataset.index;
+            ProduitLocalstorage.splice(index, 1);
+            localStorage.setItem("NouveauArticle", JSON.stringify(ProduitLocalstorage));
+            elt.remove();
+            window.location.href = "panier.html"
+            AffichageElement();
+            displayTotal();
+        });
+        const  btnAjoutProduit = article[n].querySelector(".AffichageQuantite");
+         btnAjoutProduit.addEventListener("input", (e) => {
+            //on récupère l'index du produit dans le storage
+            //on actualise la quantité
+            //on actualise le total
+            //on sauvegarde le localstorage
+            const index = article[n].dataset.index;
+            ProduitLocalstorage[index].quantity = parseInt(e.target.value);
+            localStorage.setItem("NouveauArticle", JSON.stringify(ProduitLocalstorage));
+            article[n].querySelector(".itemTotal").innerHTML = `${ProduitLocalstorage[index].quantity * ProduitLocalstorage[index].teddyPrice
+                } euros`;
+
+            displayTotal();
+        });
+    }
+}
+
+///le formulaire
 //         /////////////////Nom//////////////// valide///////////////////////////
 function validationNom(value) {
     return /^[A-Z-a-z\s]{5,80}$/.test(value)
@@ -218,7 +221,10 @@ let contact = {
 console.log(contact);
 submit.addEventListener("submit", function (event) {
     event.preventDefault()
-    //Création de l'objet "contact"
+    validePanier()
+})
+var validePanier = () => {
+    //Création de l'objet "contact
     let contact = {
         firstName: Nom.value,
         lastName: PreNom.value,
@@ -226,31 +232,27 @@ submit.addEventListener("submit", function (event) {
         city: Ville.value,
         email: mail.value,
     }
-    console.log(contact);
     if (validationAddress(Nom.value) && validationPreNom(PreNom.value)
         && validationAddress(adresse.value) && validationVille(Ville.value)
         && (validMail(mail.value))) {
         let calculePrix = []
-        for (elementDeTeddy of TeddiesLocalStorage) {
+        for (elementDeTeddy of ProduitLocalstorage) {
             let PrixArticle = elementDeTeddy.teddyPrice;
             calculePrix.push(PrixArticle);
         };
         console.log(calculePrix);
         const valeurs = (prixUnicial, valeurAjour) =>
             prixUnicial + valeurAjour
-        const totalPrice = calculePrix.reduce(valeurs);
-        event.preventDefault();
+        const PrixTotal = calculePrix.reduce(valeurs);
         submiErreur.style.visibility = "hidden"
         console.log(contact)
-
         // TAbleau pour recuperer les id des nounous qui sons dans le panier 
         let products = [];
-        for (storedTeddy of TeddiesLocalStorage) {
+        for (storedTeddy of ProduitLocalstorage) {
             let produitId = storedTeddy.teddyId;
             products.push((produitId));
         }
         console.log(products);
-
         const data = {
             contact,
             products
@@ -275,7 +277,6 @@ submit.addEventListener("submit", function (event) {
                     localStorage.removeItem("NouveauArticle");
                     window.location = "validation.html";
                 } else {
-                    event.preventDefault();
                     console.error('Retour du serveur : ', response.status);
                     alert('Erreur rencontrée : ' + response.status);
                 }
@@ -287,14 +288,9 @@ submit.addEventListener("submit", function (event) {
         post(data);
     }
     else {
-
-        event.preventDefault();
         submiErreur.style.visibility = "visible"
         submiErreur.innerHTML = "Remplissez Bien le formulaire SVP"
         submiErreur.style.color = "red"
         submiErreur.style.marginTop = "10px"
-
-
     }
-})
-
+}

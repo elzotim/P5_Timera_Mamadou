@@ -1,98 +1,145 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Oribears est un site de vente en ligne d'oursons faits à la main et personnalisables.">
-  <meta name="robots" content="index, follow">
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/style.min.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Oribears est un site de vente en ligne d'oursons faits à la main et personnalisables."
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/style.min.css" />
+    <link href="../frontend/css/cart.css" rel="stylesheet" />
 
-  <script src="https://kit.fontawesome.com/e1e907064b.js" crossorigin="anonymous"></script>
-  <link rel="shortcut icon" href="http://127.0.0.1:3000/images/logo_orinoco.png" type="image/png" />
-  <title>Oribears | Votre panier</title>
-  
-</head>
-<body>
-  <header class="container-xl1 container-xxl">
-    <div class="row">
-      <div  class="col-lg-10">
-        <a href="index.html">
-          <img class="logo" src="http://127.0.0.1:3000/images/logo_orinoco.png" alt="Orinoco"></a>
-      </div>
+    <script
+      src="https://kit.fontawesome.com/e1e907064b.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="shortcut icon"
+      href="http://127.0.0.1:3000/images/logo_orinoco.png"
+      type="image/png"
+    />
+    <title>Oribears | Votre panier</title>
+  </head>
+  <body class="container-fluid">
+    <header class="container-xl1 container-xxl">
+      <div class="row">
+        <div class="col-lg-10">
+          <a href="index.html">
+            <img
+              class="logo"
+              src="http://127.0.0.1:3000/images/logo_orinoco.png"
+              alt="Orinoco"
+          /></a>
+        </div>
         <div id="iconePanier" class="col-lg-1 mt-5">
-          <a  id="lien"href="panier.html">Panier</a>
-        </div>
-    </div>
-  </header>
-
-<!--  -->
-  <main id="page_Produit">
-    <div class="text-center mt-5">
-    <h2 class="">Récapitulatif de votre panier</h2>
-      <h3>Vos oursons</h3>
-    </div>
-  </main>
-  <div class="container tableaux ">
-    <table class="table   col table-bordered table-striped table-hover border-primary">
-      <thead class="thead-dark">
-        <tr class="col-md">
-          <th scope="col">N°</th>
-          <th scope="col">Nom</th>
-          <th scope="col">Couleur</th>
-          <th scope="col">Prix Unitaire</th>
-          <th scope="col">Prix/Produits </th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tfoot id="tfoot-id" class="thead-dark"></tfoot>
-      <tbody id="tbody-id"></tbody>
-    </table>
-  </div>
-    <h1 class="text-center">Valider la Commande</h1>
-    <form  id="form"  class="tableaux container-xl mt-4 mb-4">
-      <div class="row mb-4">
-        <div class="col">
-          <input type="text" name="nom" id="nombox" class="form-control" placeholder="Nom">
-          <span id="NomErreur"></span>
-        </div>
-        <div class="col">
-          <input type="text" name="prenom" id="prenombox" class="form-control" placeholder="Prénom">
-          <span id="PreNomErreur"></span>
+          <a id="lien" href="panier.html"
+            ><i class="fas fa-shopping-cart"></i
+            ><span id="qte_in_basket">0</span></a
+          >
         </div>
       </div>
-      <div class="row mb-4">
-        <div class="col">
-          <input id="emailbox" type="email" class="form-control" placeholder="E-mail">
-          <span id="EmailErreur"></span>
+    </header>
+
+    <!--  -->
+    <div>
+      <div class="text-center mt-5">
+        <h2 class="">Récapitulatif de votre panier</h2>
+        <h3>Vos oursons</h3>
+      </div>
+      <section class="cart">
+        <section id="cart__produit">
+        </section>
+        <div class="cart__price">
+          <p>
+            Total (<span id="QuantiteTotale"><!-- 2 --></span> articles) :
+            <span id="PrixTotal"></span> €
+          </p>
+          <p id="panierVide"></p>
         </div>
-        <div class="col">
-          <input type="text" id="adressbox" name="adress" class="form-control" placeholder="Adresse">
-          <span id="AdressErreur"></span>
+      </section>
+      <h1 class="text-center">Valider la Commande</h1>
+      <form id="form" class="tableaux container-xl mt-4 mb-4">
+        <div class="row mb-4">
+          <div class="col">
+            <input
+              type="text"
+              name="nom"
+              id="nombox"
+              class="form-control"
+              placeholder="Nom"
+            />
+            <span id="NomErreur"></span>
+          </div>
+          <div class="col">
+            <input
+              type="text"
+              name="prenom"
+              id="prenombox"
+              class="form-control"
+              placeholder="Prénom"
+            />
+            <span id="PreNomErreur"></span>
+          </div>
         </div>
-        <div class="col">
-          <input type="text" name="ville" id="villebox" class="form-control row" placeholder="ville">
-          <span id="VilleErreur"></span>
+        <div class="row mb-4">
+          <div class="col">
+            <input
+              id="emailbox"
+              type="email"
+              class="form-control"
+              placeholder="E-mail"
+            />
+            <span id="EmailErreur"></span>
+          </div>
+          <div class="col">
+            <input
+              type="text"
+              id="adressbox"
+              name="adress"
+              class="form-control"
+              placeholder="Adresse"
+            />
+            <span id="AdressErreur"></span>
+          </div>
+          <div class="col">
+            <input
+              type="text"
+              name="ville"
+              id="villebox"
+              class="form-control row"
+              placeholder="ville"
+            />
+            <span id="VilleErreur"></span>
+          </div>
         </div>
-        </div>
-       
+
         <div class="form-group form">
-          <button type="submit" class="btn btn-secondary btn-lg desc" name="submit" id="submit">valider la commande</button>
-          <br><span id="SubmitErreur"></span>
+          <button
+            type="submit"
+            class="btn btn-secondary btn-lg desc margin_button"
+            name="submit"
+            id="submit"
+          >
+            valider la commande
+          </button>
+          <br /><span id="SubmitErreur"></span>
         </div>
-    </form>
-    <footer class="footer-layout">
-      <h2>Orinoco | Entreprise de commerce en ligne</h2>
-     
+      </form>
+      <a href="./index.html" class="btn btn-secondary margin_button"
+        >Retour à l'Accueil</a
+      >
+      <footer class="footer-layout">
+        <h2>Orinoco | Entreprise de commerce en ligne</h2>
         <div class="colorblack">&copy; Copyright 2022 Orinoco.</div>
-  
-    </footer>
-<script type='text/javascript' src="Js/jquery-3.4.1.slim.min.js"></script>
-<script type='text/javascript' src="Js/popper.min.js"></script>
-<script type='text/javascript' src="Js/bootstrap.min.js"></script>
-<script type='text/javascript' src="Js/fonction_global.js"></script>
-<script type='text/javascript' src="Js/panier.js"></script>
-
-</body>
-
+      </footer>
+    </div>
+    <script type="text/javascript" src="Js/jquery-3.4.1.slim.min.js"></script>
+    <script type="text/javascript" src="Js/popper.min.js"></script>
+    <script type="text/javascript" src="Js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="Js/fonction_global.js"></script>
+    <script type="text/javascript" src="Js/panier.js"></script>
+  </body>
 </html>

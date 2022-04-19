@@ -4,108 +4,53 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.min.css">
-    
-    <script src="https://kit.fontawesome.com/2753ca90dc.js" crossorigin="anonymous"></script>
-    <link rel="shortcut icon" href="http://127.0.0.1:3000/images/logo_orinoco.png" type="image/png" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/style.min.css" />
+    <script
+      src="https://kit.fontawesome.com/2753ca90dc.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="shortcut icon"
+      href="http://127.0.0.1:3000/images/logo_orinoco.png"
+      type="image/png"
+    />
     <title>Detail du Produit</title>
-
-    <!-- <style type="text/css" media="all">
-      
-    
-      .mamama {
-        background-color: #F3E9F1;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        align-items: center;
-    
-      }
-    
-      .unique {
-        text-decoration: none;
-    
-      }
-    
-      #num-product-id,
-      #color-id{
-        border: 1px solid #ccc;
-        height: 40px !important;
-        width:100%;
-        margin-top:8px;
-      }
-    
-      #btn-basket{
-        border: 1px solid #ccc;
-        height: 40px !important;
-        margin-top: 20px;
-      }
-    
-      .card-title{
-        font-weight: 600;
-        font-size: 25px;
-        padding-right:20px;
-        display: inline;
-      }
-    
-      .card-body .row{
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-      }
-    
-      #output-id{
-        color: rgb(60, 255, 0);
-        font-size: 16px;
-        padding:10px 0;
-        text-align:center;
-      }
-    
-      #qte_in_basket{
-        position: absolute;
-        padding:1px 8px 3px 8px;
-        background: #333;
-        color:#fff;
-        font-size: 10px;
-        font-weight: 600;
-        border-radius: 20px;
-        margin-left: -10px;
-        margin-top: -8px;
-      }
-    
-      .fa-shopping-cart{
-        font-size: 25px;
-      }
-    </style> -->
   </head>
-  <body>
+  <body class="container-fluid">
     <!-- entete -->
-    <header class="container-xl1 container-xxl">
+    <header class="container-xl1">
       <div class="row">
-        <div  class="col-lg-10">
+        <div class="col-lg-10">
           <a href="index.html">
-            <img class="logo" src="http://127.0.0.1:3000/images/logo_orinoco.png" alt="Orinoco"></a>
+            <img
+              class="logo"
+              src="http://127.0.0.1:3000/images/logo_orinoco.png"
+              alt="Orinoco"
+          /></a>
         </div>
-          <div id="iconePanier" class="col-lg-1 mt-5">
-            <a  id="lien"href="panier.html"><i  class=" fas fa-shopping-cart"></i><span id="qte_in_basket">0</span></a>
-          </div>
+        <div id="iconePanier" class="col-lg-1 mt-5">
+          <a id="lien" href="panier.html">
+            <i class="fas fa-shopping-cart"></i>
+            <span id="qte_in_basket">0</span>
+          </a>
+        </div>
       </div>
     </header>
     <h1 class="text-center mt-3">Bienvenues chez les nounours</h1>
-
-
     <!-- contenu -->
-    <form action="" method="" class="row mx-3 my-4 container" id="form-id" style="margin:4rem auto !important;"> </form>
+    <form
+      action=""
+      method=""
+      class="row mx-3 my-4 container"
+      id="form-id"
+      style="margin: 4rem auto !important"
+    ></form>
     <footer class="footer-layout">
       <h2>Orinoco | Entreprise de commerce en ligne</h2>
-     
-        <div class="colorblack">&copy; Copyright 2022 Orinoco.</div>
-  
+      <div class="colorblack">&copy; Copyright 2022 Orinoco.</div>
     </footer>
     <script src="Js/fonction_global.js"></script>
     <script src="Js/produit.js"></script>
-
   </body>
 </html>
