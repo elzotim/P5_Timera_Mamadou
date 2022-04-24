@@ -3,13 +3,13 @@ window.addEventListener("load", function () {
     AffichageElement();
 })
 //Variable du tableau présent dans le localstorage//
-let ProduitLocalstorage = localStorage.getItem("NouveauArticle")
-    ? JSON.parse(localStorage.getItem("NouveauArticle"))
+let ProduitLocalstorage = localStorage.getItem("produit")
+    ? JSON.parse(localStorage.getItem("produit"))
     : [];
 console.log(ProduitLocalstorage);
 //Sélection de la classe ou injecter le code html
 //Affichage des produits du panier
-const positionElement = document.querySelector("#cart__produit");
+const positionElement = document.querySelector("#carte__produit");
 function AffichageElement() {
     if (ProduitLocalstorage.length !== 0) {
         let ProduitPanier = "";
@@ -17,13 +17,13 @@ function AffichageElement() {
             ProduitPanier += `
     <article class="carte_Objet" data-index = "${a}">
    <div class="carte_Objet__img">
-     <img src="${ProduitLocalstorage[a].teddyImage}" alt="${ProduitLocalstorage[a].alt}">
+     <img src="${ProduitLocalstorage[a].imageUrl}" alt="${ProduitLocalstorage[a].alt}">
    </div>
    <div class="carte_Objet__content">
      <div class="carte_Objet__content__TitrePrix">
-       <h2>${ProduitLocalstorage[a].teddyNom} ${ProduitLocalstorage[a].teddyColor
+       <h2>${ProduitLocalstorage[a].nom} ${ProduitLocalstorage[a].color
                 }</h2>
-       <p class="itemTotal">${ProduitLocalstorage[a].teddyPrice * ProduitLocalstorage[a].quantity
+       <p class="itemTotal">${(ProduitLocalstorage[a].price*ProduitLocalstorage[a].quantity  )
                 } euros</p>
      </div>
      <div class="carte_Objet__content">
@@ -43,11 +43,12 @@ function AffichageElement() {
         }
         positionElement.innerHTML = ProduitPanier;
         displayTotal();
-        updateItem();
+        SuppressionArticle();
     } else {
         var panierVide=document.getElementById("panierVide")
         panierVide.textContent="Votre panier est vide pour l'instant"
-        console.log("je  suis vide");
+        var aColl = document.getElementById('class_non_visible')
+        aColl.style.display='none'
     }
 }
 //fonction pour la mise à jour du total du prix et des Qté d'articles
@@ -55,7 +56,7 @@ function displayTotal() {
     let PrixTotalCalcule = [];
     let QuantiteTotaleCalcul = [];
     for (let t = 0; t < ProduitLocalstorage.length; t++) {
-        let prixTotalPanier = ProduitLocalstorage[t].teddyPrice;
+        let prixTotalPanier = ProduitLocalstorage[t].price;
         let quantitePanier = ProduitLocalstorage[t].quantity;
         PrixTotalCalcule.push(prixTotalPanier * quantitePanier);
         QuantiteTotaleCalcul.push(quantitePanier);
@@ -73,7 +74,7 @@ function displayTotal() {
 }
 //Suppression et modification du nombre d'article
 let  AffichageQuantite = document.querySelector(".AffichageQuantite");
-function updateItem() {
+function SuppressionArticle() {
     let article = document.querySelectorAll(".carte_Objet");
 
     for (let n = 0; n < article.length; n++) {
@@ -83,7 +84,7 @@ function updateItem() {
             const elt = e.target.closest("article");
             const index = elt.dataset.index;
             ProduitLocalstorage.splice(index, 1);
-            localStorage.setItem("NouveauArticle", JSON.stringify(ProduitLocalstorage));
+            localStorage.setItem("produit", JSON.stringify(ProduitLocalstorage));
             elt.remove();
             window.location.href = "panier.html"
             AffichageElement();
@@ -95,10 +96,11 @@ function updateItem() {
             //on actualise la quantité
             //on actualise le total
             //on sauvegarde le localstorage
+            console.log(ProduitLocalstorage);
             const index = article[n].dataset.index;
             ProduitLocalstorage[index].quantity = parseInt(e.target.value);
-            localStorage.setItem("NouveauArticle", JSON.stringify(ProduitLocalstorage));
-            article[n].querySelector(".itemTotal").innerHTML = `${ProduitLocalstorage[index].quantity * ProduitLocalstorage[index].teddyPrice
+            localStorage.setItem("produit", JSON.stringify(ProduitLocalstorage));
+            article[n].querySelector(".itemTotal").innerHTML = `${ProduitLocalstorage[index].quantity * (ProduitLocalstorage[index].price)
                 } euros`;
 
             displayTotal();
@@ -235,21 +237,11 @@ var validePanier = () => {
     if (validationAddress(Nom.value) && validationPreNom(PreNom.value)
         && validationAddress(adresse.value) && validationVille(Ville.value)
         && (validMail(mail.value))) {
-        let calculePrix = []
-        for (elementDeTeddy of ProduitLocalstorage) {
-            let PrixArticle = elementDeTeddy.teddyPrice;
-            calculePrix.push(PrixArticle);
-        };
-        console.log(calculePrix);
-        const valeurs = (prixUnicial, valeurAjour) =>
-            prixUnicial + valeurAjour
-        const PrixTotal = calculePrix.reduce(valeurs);
-        submiErreur.style.visibility = "hidden"
-        console.log(contact)
-        // TAbleau pour recuperer les id des nounous qui sons dans le panier 
+                // TAbleau pour recuperer les id des nounous qui sons dans le panier 
         let products = [];
         for (storedTeddy of ProduitLocalstorage) {
-            let produitId = storedTeddy.teddyId;
+            console.log(storedTeddy);
+            let produitId = storedTeddy.idProduit;
             products.push((produitId));
         }
         console.log(products);
@@ -274,7 +266,7 @@ var validePanier = () => {
                     let datas = await response.json();
                     console.log(datas)
                     localStorage.setItem("responseOrder", datas.orderId);
-                    localStorage.removeItem("NouveauArticle");
+                    localStorage.removeItem("produit");
                     window.location = "validation.html";
                 } else {
                     console.error('Retour du serveur : ', response.status);

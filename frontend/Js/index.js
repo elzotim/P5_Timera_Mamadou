@@ -41,9 +41,10 @@ function listerTeddies(data) {
     }
 }
 //////////afficher qte de produit dans le panier 
-let HisTeddies = JSON.parse(localStorage.getItem('NouveauArticle'));
+let HisTeddies = JSON.parse(localStorage.getItem('produit'));
+let teddisQuantiteTotlal = [];
+console.log(HisTeddies);
 var quantitéProduit = () => {
-    let teddisQuantiteTotlal = [];
     if (HisTeddies) {
         HisTeddies.forEach((teddies) => {
             teddisQuantiteTotlal.push(teddies.quantity)

@@ -4,9 +4,9 @@ const Furniture = require('../models/Furniture');
 exports.getAllFurniture = (req, res, next) => {
   Furniture.find().then(
     (furniture) => {
-      const mappedFurniture = furniture.map((item) => {
-        item.imageUrl = req.protocol + '://' + req.get('host') + '/images/' + item.imageUrl;
-        return item;
+      const mappedFurniture = furniture.map((objet) => {
+        objet.imageUrl = req.protocol + '://' + req.get('host') + '/images/' + objet.imageUrl;
+        return objet;
       });
       res.status(200).json(mappedFurniture);
     }

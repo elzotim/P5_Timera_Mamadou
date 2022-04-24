@@ -9,7 +9,7 @@ h1 {
 
 
 /************/
-/*Cart Items*/
+/*Cart objets*/
 /************/
 .cart {
  
@@ -56,7 +56,7 @@ h1 {
 .carte_Objet__content__quantity,.carte_Objet__content__supprim {
 	display: flex;
 	padding: 10px;
-	align-items: flex-start;
+	align-objets: flex-start;
 }
 .carte_Objet__content__quantity p {
 	margin-right: 10px;
@@ -78,7 +78,7 @@ h1 {
 /*******/
 /*Price*/
 /*******/
-.cart__price {
+.carte__prix {
 	border-top: 3px solid white;
 	padding-top: 35px;
 	background: rgb(243 233 241);
@@ -88,7 +88,7 @@ h1 {
 	background: rgb(243, 233, 241);;
 
 }
-.cart__price p {
+.carte__prix p {
 	text-align: end;
 	font-size: 22px;
 	padding-right: 30px;

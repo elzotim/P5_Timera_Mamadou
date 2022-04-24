@@ -1,133 +1,147 @@
+//On récupere l'id du produit en question dans l'url
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+const id = urlParams.get('id');
+//?
+let article = '';
+
+const colorSelect = document.querySelector('#colors');
+const quantitySelect = document.querySelector('#quantity');
+
+//On récupère les produits de l'API
 window.addEventListener("load", function () {
-    console.log("loaded")
-    getTedis()
+  console.log("loaded")
+  getTedis()
 })
 ///donner de l'Api
 var getTedis = () => {
-    const searchParams = new URLSearchParams(location.search);
-    const id_teddies = searchParams.get("_id");
-    const teddies_Url = `http://localhost:3000/api/teddies/${id_teddies}`;
-    fetch(teddies_Url)
-        .then((response) => response.json())
-        .then((data) => {
-            listerElemnt(data);
-            selectionTeddies(data)
-        })
-}
-/*affichage des elements et parcourir la liste */
-function listerElemnt(data) {
-    console.log(data)
-    const card = document.getElementById("form-id");
-    let options = "";
-    for (color of data.colors) {
-        if (data.colors[0]) {
-            options += `<option value="${color}">${color} (Couleur par defaut)</option>`;
-        } else {
-            options += `<option value="${color}">${color}</option>`
-        }
-    }
-    card.insertAdjacentHTML('afterbegin', `
-    <div class="container-xl block">
-        <div class="row">
-          <div class="col-6">
-            <img
-              src="${data.imageUrl}"
-              class="img-fluid img-thumbnail p-1"
-              alt="${data.name}"
-            />
-          </div>
-          <div class="col-6 d-flex flex-column bd-highlight mb-3" id="caracteristique">
-            <div class="row hauteur " height=100>
-              <div class="col def">${data.name}</div>
-              <div class="col def text-center">${data.price / 100 + " €"}</div>
-            </div>
-            <p>
-            ${data.description}
-            </p>
-            <select class=" form-select form-select-sm hauteur" name="color" id="color-id">
-              ${options}
-            </select>
-            <select class="row form-select form-select-sm hauteur " name="num-product" id="num-product-id" >
-              <option value="0">Selectionnez la quantité</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-            </select>
-            <button 
-              class="btn btn-secondary text-center  "
-              id="btn-basket"
-              type="submit"
-              name="ajout"
-            >
-              Ajouter au panier
-            </button>
-            <div id="output-id"></div>
-          </div>
-      </div>
-    </div>`);
-}
-let HisTeddies = JSON.parse(localStorage.getItem('NouveauArticle'));
-function selectionTeddies(data) {
-    //creation de l'element button dans l'element id=carateristique   
-    const caracteristique = document.getElementById("form-id")
-    caracteristique.addEventListener("submit", function (event) {
-        console.log("vous venez d'ajouter");
-        event.preventDefault();
-        //  les donnés  teddy à envoyer dans localStorage
-        let teddiesChoisie = {
-            teddyImage: data.imageUrl,
-            teddyNom: data.name,
-            teddyId: data._id,
-            quantity: document.querySelector('#num-product-id').value,
-            teddyColor: document.querySelector('#color-id').value,
-            teddyPrice: data.price / 100,
-        };
-        console.log()
-        var quantity = document.querySelector('#num-product-id').value;
-        let HisTeddies = JSON.parse(localStorage.getItem('NouveauArticle'));
-        if (HisTeddies && quantity != 0) {
-            const envoiePagner = window.confirm("Souhaitez-vous ajouté " + teddiesChoisie.teddyNom + " " + ' au panier ?')
-            if (envoiePagner == true && quantity != 0) {
-                console.log(quantity);
-                HisTeddies.push(teddiesChoisie);
-                localStorage.setItem('NouveauArticle', JSON.stringify(HisTeddies));
-                document.querySelector('#output-id').innerHTML = "Le produit " + teddiesChoisie.teddyNom + `(quatité ${teddiesChoisie.quantity})  a bien été ajouté au panier`;
-                HisTeddies[data.teddyId] = data;
-            } else {
-                document.querySelector('#output-id').innerHTML = "Veuillez selectionner la quatité svp.";
-            }
-        }
-        else {
-            HisTeddies = [];
-            const envoiePagner = window.confirm("Souhaitez-vous ajouté " + teddiesChoisie.teddyNom + " " + ' au panier ?')
-            if (envoiePagner == true && quantity != 0) {
-                HisTeddies.push(teddiesChoisie);
-                localStorage.setItem('NouveauArticle', JSON.stringify(HisTeddies));
-                window.location.href = "produit.html";
-            } else {
-                document.querySelector('#output-id').innerHTML = "Veuillez selectionner la quatité svp.";
-            }
-        }
-    }
-    );
-}
-console.log(HisTeddies);
-        /**
-        * -----------------------------------------------------
-        * Afficharge du nombre de produit dans le panier
-        * -----------------------------------------------------
-        */
-let teddisQuantiteTotlal = [];
+  const searchParams = new URLSearchParams(location.search);
+  const id_teddies = searchParams.get("_id");
+  const teddies_Url = `http://localhost:3000/api/teddies/${id_teddies}`;
+  fetch(teddies_Url)
+      .then((response) => response.json())
+      .then((article) => {
+        listerElemnt(article)
+      })}
+//Création article des produits
+function listerElemnt(article) {
+  //Création des images
+  let elementImg = document.createElement('img');
+  document.querySelector('.objet__img').appendChild(elementImg);
+  elementImg.src = article.imageUrl;
+  elementImg.Alt = article.description;
+  elementImg.className= "img-fluid img-thumbnail p-"
+  //Insertion des noms dans l'id title
+  let elementTitle = document.getElementById('titre');
+  elementTitle.textContent = article.name;
 
-if (HisTeddies) {
-    HisTeddies.forEach((teddies) => {
+  //Insertion des prix dans l'id price
+  let elementPrice = document.getElementById('prix');
+  elementPrice.textContent = article.price/100;
+  //Insertion de la description des produits dans l'id description
+  let elementDescription = document.getElementById('description');
+  elementDescription.textContent = article.description;
+  elementDescription.className="card-text text-truncate"
+  //Insertion des différents choix de couleurs
+  for (let colors of article.colors) {
+    let elementsColor = document.createElement('option');
+    document.querySelector('#colors').appendChild(elementsColor);
+    elementsColor.value = colors;
+    elementsColor.textContent = colors;
+  }
+  // Appel de la function selectionTeddies
+  selectionTeddies(article);
+}
+
+function selectionTeddies(article) {
+  //button d'ajout des produits et écouteurs d'événement au click
+  const button = document.querySelector('#Ajout_Panier');
+  button.addEventListener('click', (e) => {
+    //Récupération des valeurs quantité et couleurs
+    let selectColor = colorSelect.value;
+    let selectQuantity = quantitySelect.value;
+
+    if (
+      selectQuantity == 0 ||
+      selectQuantity > 100 ||
+      selectColor == null ||
+      selectColor == ''
+    ) {
+      alert(
+        //alert si l'utilisateur ne sélectionne pas de couleur et|ou de quantité
+        'Veuillez renseigner une quantité comprise entre 1 et 100 et une couleur'
+      );
+      return;
+    } else {
+      //Condition pour ajouter dans le panier couleur et quantité définit
+
+      //Récupération des informations de l'article à ajouter au panier
+      let info = {
+        idProduit: article._id,
+        color: selectColor,
+        quantity: Number(selectQuantity),
+        nom: article.name,
+        description: article.description,
+        imageUrl: article.imageUrl,
+        imgAlt: article.altTxt,
+        price:(article.price)/100
+      };
+      console.log(info.idProduit);
+
+      //init du localStorage
+
+      let purchaseStorage = JSON.parse(localStorage.getItem('produit'));
+
+      //alerte que l'utilisateur aura quand il ajoutera un article dans le panier
+
+      const alertConfirmation = () => {
+        if (
+          window.confirm(
+            `${selectQuantity} ${article.name} de couleur ${selectColor} bien ajouté à votre panier pour le consulter appuyer sur OK `
+          )
+        ) {
+          //envoie l'utilisateur sur la page panier
+          window.location.href = 'panier.html';
+        } else {
+          location.reload(); //reload de la page actuelle
+        }
+      };
+
+      if (purchaseStorage) {
+        const foundStorage = purchaseStorage.find(
+          (p) => p.idProduit === article._id && p.color === selectColor
+        );
+        if (foundStorage) {
+          //Si dans le panier il y a un produit avec le même id et la même couleur
+          let totalQuantity =
+            parseInt(info.quantity) + parseInt(foundStorage.quantity);
+          foundStorage.quantity = totalQuantity;
+          localStorage.setItem('produit', JSON.stringify(purchaseStorage));
+          alertConfirmation();
+        } else {
+          //Sinon (produit different de ceux deja commandé)
+
+          purchaseStorage.push(info);
+          localStorage.setItem('produit', JSON.stringify(purchaseStorage));
+          alertConfirmation();
+        }
+      } else {
+        //s'il n'y a rien dans le panier création array
+        purchaseStorage = [];
+        //On push les informations du localStorage dans le array
+        purchaseStorage.push(info);
+       
+        localStorage.setItem('produit', JSON.stringify(purchaseStorage));
+        alertConfirmation();
+      }
+    }
+  });
+}
+let teddisQuantiteTotlal = [];
+let purchaseStorage = JSON.parse(localStorage.getItem('produit'));
+
+if (purchaseStorage) {
+    purchaseStorage.forEach((teddies) => {
         teddisQuantiteTotlal.push(teddies.quantity)
         console.log(teddisQuantiteTotlal);
         document.getElementById("qte_in_basket").textContent = `${eval(teddisQuantiteTotlal.join('+'))}`;

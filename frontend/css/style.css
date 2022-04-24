@@ -111,31 +111,31 @@ a:active {
 .flex-container.--row.--align-center {
   -webkit-box-align: center;
   -ms-flex-align: center;
-  align-items: center;
+  align-objets: center;
 }
 
 .flex-container.--row.--align-stretch {
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
-  align-items: stretch;
+  align-objets: stretch;
 }
 
 .flex-container.--row.--align-start {
   -webkit-box-align: start;
   -ms-flex-align: start;
-  align-items: flex-start;
+  align-objets: flex-start;
 }
 
 .flex-container.--row.--align-end {
   -webkit-box-align: end;
   -ms-flex-align: end;
-  align-items: flex-end;
+  align-objets: flex-end;
 }
 
 .flex-container.--row.--align-end {
   -webkit-box-align: flex-normal;
   -ms-flex-align: flex-normal;
-  align-items: flex-normal;
+  align-objets: flex-normal;
 }
 
 .flex-container.--row.--justify-start {
@@ -224,31 +224,31 @@ a:active {
 .flex-container.--column.--align-center {
   -webkit-box-align: center;
   -ms-flex-align: center;
-  align-items: center;
+  align-objets: center;
 }
 
 .flex-container.--column.--align-stretch {
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
-  align-items: stretch;
+  align-objets: stretch;
 }
 
 .flex-container.--column.--align-start {
   -webkit-box-align: start;
   -ms-flex-align: start;
-  align-items: flex-start;
+  align-objets: flex-start;
 }
 
 .flex-container.--column.--align-end {
   -webkit-box-align: end;
   -ms-flex-align: end;
-  align-items: flex-end;
+  align-objets: flex-end;
 }
 
 .flex-container.--column.--align-end {
   -webkit-box-align: flex-normal;
   -ms-flex-align: flex-normal;
-  align-items: flex-normal;
+  align-objets: flex-normal;
 }
 
 .flex-container.--column.--justify-start {
@@ -392,6 +392,9 @@ a:active {
 .flex-container .--margin-bottom-10 {
   margin-bottom: 1rem;
 }
+.conteneur{
+  background: rgb(243 233 241);
+}
 
 .flex-container .--margin-bottom-20 {
   margin-bottom: 2rem;
@@ -476,7 +479,7 @@ a:active {
 }
 
 .flex-container > .self-center {
-  -ms-flex-item-align: center;
+  -ms-flex-objet-align: center;
   -ms-grid-row-align: center;
   align-self: center;
 }
@@ -659,7 +662,7 @@ a:active {
   color: #999;
 }
 
-.selectbox.--block .item {
+.selectbox.--block .objet {
   width: 100%;
   padding: 0.7rem 2rem 1rem 1rem;
   border: 0.1rem solid #ddd;
@@ -672,13 +675,13 @@ a:active {
   transition: all 0.3s linear;
 }
 
-.selectbox.--block .item:hover {
+.selectbox.--block .objet:hover {
   background: #fff;
   border: 0.1rem solid rgba(0, 0, 0, 0.4);
   color: #444;
 }
 
-.selectbox.--block .selection-item {
+.selectbox.--block .selection-objet {
   display: none;
   position: absolute;
   max-height: 20rem;
@@ -691,7 +694,7 @@ a:active {
   z-index: 3;
 }
 
-.selectbox.--block .selection-item div {
+.selectbox.--block .selection-objet div {
   padding: 0.6rem 2rem;
   font-size: 1.6rem;
   color: #444;
@@ -699,7 +702,7 @@ a:active {
   transition: all 0.1s linear;
 }
 
-.selectbox.--block .selection-item div:hover {
+.selectbox.--block .selection-objet div:hover {
   background-color: rgba(0, 0, 0, 0.08);
   color: #01437a;
   cursor: pointer;
@@ -730,7 +733,7 @@ a:active {
   color: #999;
 }
 
-.selectbox.--inline .item {
+.selectbox.--inline .objet {
   width: 100%;
   padding: 0.7rem 2rem 1rem 2rem;
   border: 0.1rem solid #ccc;
@@ -743,12 +746,12 @@ a:active {
   transition: all 0.3s linear;
 }
 
-.selectbox.--inline .item:hover {
+.selectbox.--inline .objet:hover {
   border: 0.1rem solid rgba(0, 0, 0, 0.4);
   color: #444;
 }
 
-.selectbox.--inline .selection-item {
+.selectbox.--inline .selection-objet {
   display: none;
   position: absolute;
   max-height: 20rem;
@@ -761,7 +764,7 @@ a:active {
   z-index: 2;
 }
 
-.selectbox.--inline .selection-item div {
+.selectbox.--inline .selection-objet div {
   padding: 0.6rem 2rem;
   font-size: 1.6rem;
   color: #444;
@@ -769,7 +772,7 @@ a:active {
   transition: all 0.1s linear;
 }
 
-.selectbox.--inline .selection-item div:hover {
+.selectbox.--inline .selection-objet div:hover {
   background-color: rgba(0, 0, 0, 0.08);
   color: #01437a;
   cursor: pointer;
@@ -879,7 +882,7 @@ a:active {
   justify-content: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
-  align-items: center;
+  align-objets: center;
   position: relative;
   width: 2rem;
   height: 2rem;
@@ -1292,7 +1295,7 @@ a:active {
   justify-content: space-between !important;
   -webkit-box-align: center;
   -ms-flex-align: center;
-  align-items: center;
+  align-objets: center;
   -ms-flex-wrap: nowrap;
   flex-wrap: nowrap;
   padding: 1rem 3rem 1rem 1rem;
@@ -1426,7 +1429,7 @@ a:active {
   margin: 3rem auto;
 }
 
-.product-layout .products-side .product-item {
+.product-layout .products-side .product-objet {
   max-width: 32rem;
   margin: 1rem;
   background: #fff;
@@ -1435,34 +1438,34 @@ a:active {
   transition: all 0.2s linear;
 }
 
-.product-layout .products-side .product-item:hover {
+.product-layout .products-side .product-objet:hover {
   -webkit-transform: translateY(-1rem);
   transform: translateY(-1rem);
   -webkit-box-shadow: 0 0.1rem 2rem 1rem rgba(1, 67, 122, 0.1);
   box-shadow: 0 0.1rem 2rem 1rem rgba(1, 67, 122, 0.1);
 }
 
-.product-layout .products-side .product-item .image .product-image {
+.product-layout .products-side .product-objet .image .product-image {
   width: 100%;
   border-radius: 2rem 2rem 0 0;
 }
 
-.product-layout .products-side .product-item .description {
+.product-layout .products-side .product-objet .description {
   padding: 1rem 2rem;
   text-align: center;
 }
 
-.product-layout .products-side .product-item .description .name {
+.product-layout .products-side .product-objet .description .name {
   font-size: 1.8rem;
   font-weight: 600;
   color: #01437a;
 }
 
-.product-layout .products-side .product-item .description .detail {
+.product-layout .products-side .product-objet .description .detail {
   font-size: 1.4rem;
 }
 
-.product-layout .products-side .product-item .description .link {
+.product-layout .products-side .product-objet .description .link {
   display: inline-block;
   margin: 1.5rem auto 1rem auto;
   font-size: 1.4rem;
@@ -1475,11 +1478,11 @@ a:active {
   transition: all 0.2s linear;
 }
 
-.product-layout .products-side .product-item .description .link i {
+.product-layout .products-side .product-objet .description .link i {
   padding-left: 1rem;
 }
 
-.product-layout .products-side .product-item .description .link:hover {
+.product-layout .products-side .product-objet .description .link:hover {
   color: #fff;
   background: #01437a;
 }
@@ -1604,7 +1607,7 @@ a:active {
   justify-content: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
-  align-items: center;
+  align-objets: center;
   width: 6.4rem;
 }
 
@@ -1752,16 +1755,16 @@ a:active {
   width: 10rem;
 }
 
-.header-layout .navbar .menu .item a {
+.header-layout .navbar .menu .objet a {
   font-size: 1.6rem;
   color: #fff;
 }
 
-.header-layout .navbar .menu .item a .fa-shopping-basket {
+.header-layout .navbar .menu .objet a .fa-shopping-basket {
   font-size: 2rem;
 }
 
-.header-layout .navbar .menu .item a #qte_in_basket {
+.header-layout .navbar .menu .objet a #qte_in_basket {
   display: inline-block;
   font-size: 1rem;
   padding: 0 0.4rem;
@@ -2009,7 +2012,7 @@ a:active {
   justify-content: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
-  align-items: center;
+  align-objets: center;
   border-radius: 50%;
 }
 
@@ -2193,43 +2196,43 @@ a:active {
   background: #01437a;
 }
 
-.login-layout--side.left-side .item {
+.login-layout--side.left-side .objet {
   margin: 2rem;
   padding: 2rem;
   border-radius: 1rem;
 }
 
-.login-layout--side.left-side .item h1 {
+.login-layout--side.left-side .objet h1 {
   font-size: 4rem;
   color: #fff;
   line-height: normal;
 }
 
-.login-layout--side.left-side .item span {
+.login-layout--side.left-side .objet span {
   display: inline-block;
   border-bottom: 0.2rem solid #fff;
   width: 20rem;
 }
 
-.login-layout--side.left-side .item p {
+.login-layout--side.left-side .objet p {
   font-size: 1.4rem;
   color: #fff;
   padding-top: 2rem;
 }
 
-.login-layout--side.left-side .item div {
+.login-layout--side.left-side .objet div {
   color: #fff;
   font-size: 1.4rem;
 }
 
-.login-layout--side.left-side .item div a {
+.login-layout--side.left-side .objet div a {
   font-weight: 600;
   display: inline-block;
   padding-top: 2rem;
   color: #fff;
 }
 
-.login-layout--side.left-side .item div a:hover {
+.login-layout--side.left-side .objet div a:hover {
   text-decoration: underline;
 }
 
@@ -2309,43 +2312,43 @@ a:active {
   position: relative;
 }
 
-.register-layout--side.left-side .item {
+.register-layout--side.left-side .objet {
   margin: 2rem;
   padding: 2rem;
   border-radius: 1rem;
 }
 
-.register-layout--side.left-side .item h1 {
+.register-layout--side.left-side .objet h1 {
   font-size: 4rem;
   color: #fff;
   line-height: normal;
 }
 
-.register-layout--side.left-side .item span {
+.register-layout--side.left-side .objet span {
   display: inline-block;
   border-bottom: 0.2rem solid #fff;
   width: 20rem;
 }
 
-.register-layout--side.left-side .item p {
+.register-layout--side.left-side .objet p {
   font-size: 1.4rem;
   color: #fff;
   padding-top: 2rem;
 }
 
-.register-layout--side.left-side .item div {
+.register-layout--side.left-side .objet div {
   color: #fff;
   font-size: 1.4rem;
 }
 
-.register-layout--side.left-side .item div a {
+.register-layout--side.left-side .objet div a {
   font-weight: 600;
   display: inline-block;
   padding-top: 2rem;
   color: #fff;
 }
 
-.register-layout--side.left-side .item div a:hover {
+.register-layout--side.left-side .objet div a:hover {
   text-decoration: underline;
 }
 

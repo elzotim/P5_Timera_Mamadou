@@ -39,13 +39,56 @@
     </header>
     <h1 class="text-center mt-3">Bienvenues chez les nounours</h1>
     <!-- contenu -->
-    <form
-      action=""
-      method=""
-      class="row mx-3 my-4 container"
-      id="form-id"
-      style="margin: 4rem auto !important"
-    ></form>
+    <main class="container-xl block">
+      <div class="">
+        <section class="objet" id="objet">
+          <article class="row">
+            <div class="objet__img col-6">
+            </div>
+            <div class="col-6 d-flex flex-column bd-highlight mb-3" id="item__content">
+              <div>
+                <h1 id="titre"><!--Nom du produit--></h1>
+                <p>Prix : <span id="prix"> </span>€</p>
+              </div>
+
+              <div class="">
+                <p class="">Description :</p>
+                <p >
+                  <em id="description">
+
+                  </em>
+                </p>
+              </div>
+              <div>
+                <div>
+                  <label for="color-select" >Choisir une couleur :</label>
+                  <select name="color-select " id="colors" class="form-select form-select-sm">
+                    <option value="">--SVP, choisissez une couleur --</option>
+                  </select>
+                </div>
+                <div class="item__content__settings__quantity">
+                  <label for="itemQuantity label label-primary"
+                    >Nombre d'article(s) (1-100) :</label
+                  >
+                  <input
+                    type="number"
+                    name="itemQuantity"
+                    min="1"
+                    max="100"
+                    value="0"
+                    id="quantity"
+                  />
+                </div>
+              </div>
+              <div >
+                <button id="Ajout_Panier" class="btn btn-secondary">Ajouter au panier</button>
+              </div>
+            </div>
+          </article>
+        </section>
+      </div>
+    </main>
+
     <footer class="footer-layout">
       <h2>Orinoco | Entreprise de commerce en ligne</h2>
       <div class="colorblack">&copy; Copyright 2022 Orinoco.</div>

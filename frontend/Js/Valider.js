@@ -12,5 +12,5 @@ orderIdd.innerHTML +=` <p id="ref">NUMERO DE SUIVI DE PRODUIT(S) </p> <strong id
 // récupération du prix total de la commande
 
 // Efface localStorage
-localStorage.clear();
+ localStorage.clear();
 }
