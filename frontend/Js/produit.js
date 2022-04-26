@@ -11,37 +11,38 @@ const quantitySelect = document.querySelector('#quantity');
 //On récupère les produits de l'API
 window.addEventListener("load", function () {
   console.log("loaded")
-  getTedis()
+  getTeddies()
 })
 ///donner de l'Api
-var getTedis = () => {
+var getTeddies = () => {
   const searchParams = new URLSearchParams(location.search);
   const id_teddies = searchParams.get("_id");
   const teddies_Url = `http://localhost:3000/api/teddies/${id_teddies}`;
   fetch(teddies_Url)
-      .then((response) => response.json())
-      .then((article) => {
-        listerElemnt(article)
-      })}
+    .then((response) => response.json())
+    .then((article) => {
+      listerElt(article)
+    })
+}
 //Création article des produits
-function listerElemnt(article) {
+let listerElt = (article) => {
   //Création des images
   let elementImg = document.createElement('img');
   document.querySelector('.objet__img').appendChild(elementImg);
   elementImg.src = article.imageUrl;
   elementImg.Alt = article.description;
-  elementImg.className= "img-fluid img-thumbnail p-"
+  elementImg.className = "img-fluid img-thumbnail p-"
   //Insertion des noms dans l'id title
   let elementTitle = document.getElementById('titre');
   elementTitle.textContent = article.name;
 
   //Insertion des prix dans l'id price
   let elementPrice = document.getElementById('prix');
-  elementPrice.textContent = article.price/100;
+  elementPrice.textContent = article.price / 100;
   //Insertion de la description des produits dans l'id description
   let elementDescription = document.getElementById('description');
   elementDescription.textContent = article.description;
-  elementDescription.className="card-text text-truncate"
+  elementDescription.className = "card-text text-truncate"
   //Insertion des différents choix de couleurs
   for (let colors of article.colors) {
     let elementsColor = document.createElement('option');
@@ -53,7 +54,7 @@ function listerElemnt(article) {
   selectionTeddies(article);
 }
 
-function selectionTeddies(article) {
+selectionTeddies = (article) => {
   //button d'ajout des produits et écouteurs d'événement au click
   const button = document.querySelector('#Ajout_Panier');
   button.addEventListener('click', (e) => {
@@ -84,7 +85,7 @@ function selectionTeddies(article) {
         description: article.description,
         imageUrl: article.imageUrl,
         imgAlt: article.altTxt,
-        price:(article.price)/100
+        price: (article.price) / 100
       };
       console.log(info.idProduit);
 
@@ -130,7 +131,7 @@ function selectionTeddies(article) {
         purchaseStorage = [];
         //On push les informations du localStorage dans le array
         purchaseStorage.push(info);
-       
+
         localStorage.setItem('produit', JSON.stringify(purchaseStorage));
         alertConfirmation();
       }
@@ -141,9 +142,9 @@ let teddisQuantiteTotlal = [];
 let purchaseStorage = JSON.parse(localStorage.getItem('produit'));
 
 if (purchaseStorage) {
-    purchaseStorage.forEach((teddies) => {
-        teddisQuantiteTotlal.push(teddies.quantity)
-        console.log(teddisQuantiteTotlal);
-        document.getElementById("qte_in_basket").textContent = `${eval(teddisQuantiteTotlal.join('+'))}`;
-    })
+  purchaseStorage.forEach((teddies) => {
+    teddisQuantiteTotlal.push(teddies.quantity)
+    console.log(teddisQuantiteTotlal);
+    document.getElementById("qte_in_basket").textContent = `${eval(teddisQuantiteTotlal.join('+'))}`;
+  })
 }

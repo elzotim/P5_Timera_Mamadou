@@ -6,7 +6,7 @@ window.addEventListener("load", function () {
 
 // get de l'api
 var recupererListe = () => {
-    fetch(url_api)
+    fetch(URL_API)
         .then((response) => response.json())
         .then((data) => {
             console.log(data)
@@ -17,7 +17,7 @@ var recupererListe = () => {
 }
 
 //fonction de recuperation de liste
-function listerTeddies(data) {
+var listerTeddies = (data) => {
     //parcourir la liste 
     for (teddies of data) {
         const card = document.getElementById("liste");

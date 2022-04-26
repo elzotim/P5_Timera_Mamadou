@@ -1,66 +1,63 @@
 <!DOCTYPE html>
 <html lang="fr">
-	<head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="./css/bootstrap.min.css">
-    <script src="https://kit.fontawesome.com/2753ca90dc.js" crossorigin="anonymous"></script>
-   
-        <title>Oribears | Récapitulatif de votre commande</title>
-        <meta name="description" content="Oribears est un site de vente en ligne d'oursons faits à la main et personnalisables.">
-        <meta name="robots" content="index, follow">
-    </head>
-<style>
-    p,
-  h1 {
-    font-family: 'Times New Roman', Times, serif;
-  }
-
-  .mamama {
-    background-color: #F3E9F1;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-objets: center;
-
-  }
-
-  body {
-    text-align: center;
-    background-color: #F3E9F1;
-  }
-</style>
-
-<body>
-  <header>
-    <div class="container">
-      <div class="mamama">
-        <a href="./index.html"><img class="logo" src="../backend/images/logo_orinoco.png" alt="Orinoco">
-        </a>
-        
-      </div>
-    </div>
-  </header>
-
-  
-        <main id="product_page">
-            <h1>Ourounours</h1>
-            <h3>Nous avons le plaisir de vous informer <br> que votre commande a bien été enregistrée.</h3>
-            <h5>Récapitulatif de votre commande</h5>
-            <p  id="recap"></p>
-            <p id="orderId"></p>
-            
-        </main>
-        <p>Nous espérons vous revoir très vite chez Orinourous !</p>
-        <div class="back">
-          <button class="btn btn-secondary " onclick="window.location.href = 'index.html';">Retour à l'accueil</button>
-      
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../css/style.min.css" />
+    <script
+      src="https://kit.fontawesome.com/2753ca90dc.js"
+      crossorigin="anonymous"
+    ></script>
+    <title>Oribears | Récapitulatif de votre commande</title>
+    <meta
+      name="description"
+      content="Oribears est un site de vente en ligne d'oursons faits à la main et personnalisables."
+    />
+    <meta name="robots" content="index, follow" />
+  </head>
+  <style>
+    body {
+      text-align: center;
+      background-color: #f3e9f1;
+    }
+  </style>
+  <body>
+    <header>
+      <div class="container">
+        <div class="mamama">
+          <a href="./index.html"
+            ><img
+              class="logo"
+              src="../../backend/images/logo_orinoco.png"
+              alt="Orinoco"
+            />
+          </a>
         </div>
-        <footer>
-                <h2>Orinoco | Entreprise de commerce en ligne</h2>
-   
-              </footer>
-
-              <script type='text/javascript' src="./Js/Valider.js"></script>
-</body>
+      </div>
+    </header>
+    <main id="product_page">
+      <h1>Ourounours</h1>
+      <h3>
+        Nous avons le plaisir de vous informer <br />
+        que votre commande a bien été enregistrée.
+      </h3>
+      <h4>@Récapitulatif de votre commande</h4>
+      <p id="recap"></p>
+      <p id="orderId"></p>
+    </main>
+    <p>Nous espérons vous revoir très vite chez Orinourous !</p>
+    <div class="back">
+      <button
+        class="btn btn-secondary"
+        onclick="window.location.href = 'index.html';"
+      >
+        Retour à l'accueil
+      </button>
+    </div>
+    <footer>
+      <h2>Orinoco | Entreprise de commerce en ligne</h2>
+    </footer>
+    <script type="text/javascript" src="../Js/Valider.js"></script>
+  </body>
 </html>

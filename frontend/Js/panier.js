@@ -1,35 +1,35 @@
 window.addEventListener("load", function () {
     console.log("loaded")
-    AffichageElement();
+    affichageElement();
 })
 //Variable du tableau présent dans le localstorage//
-let ProduitLocalstorage = localStorage.getItem("produit")
+var produitLocalstorage = localStorage.getItem("produit")
     ? JSON.parse(localStorage.getItem("produit"))
     : [];
-console.log(ProduitLocalstorage);
+console.log(produitLocalstorage);
 //Sélection de la classe ou injecter le code html
 //Affichage des produits du panier
 const positionElement = document.querySelector("#carte__produit");
-function AffichageElement() {
-    if (ProduitLocalstorage.length !== 0) {
-        let ProduitPanier = "";
-        for (let a = 0; a < ProduitLocalstorage.length; a++) {
-            ProduitPanier += `
+var affichageElement = () => {
+    if (produitLocalstorage.length !== 0) {
+        let produitPanier = "";
+        for (let a = 0; a < produitLocalstorage.length; a++) {
+            produitPanier += `
     <article class="carte_Objet" data-index = "${a}">
    <div class="carte_Objet__img">
-     <img src="${ProduitLocalstorage[a].imageUrl}" alt="${ProduitLocalstorage[a].alt}">
+     <img src="${produitLocalstorage[a].imageUrl}" alt="${produitLocalstorage[a].alt}">
    </div>
    <div class="carte_Objet__content">
      <div class="carte_Objet__content__TitrePrix">
-       <h2>${ProduitLocalstorage[a].nom} ${ProduitLocalstorage[a].color
+       <h2>${produitLocalstorage[a].nom} ${produitLocalstorage[a].color
                 }</h2>
-       <p class="itemTotal">${(ProduitLocalstorage[a].price*ProduitLocalstorage[a].quantity  )
+       <p class="itemTotal">${(produitLocalstorage[a].price * produitLocalstorage[a].quantity)
                 } euros</p>
      </div>
      <div class="carte_Objet__content">
        <div class="carte_Objet__content__quantity">
          <p>Qté : </p>
-         <input type="number" class=" AffichageQuantite" name=" AffichageQuantite" min="1" max="100" value="${ProduitLocalstorage[a].quantity
+         <input type="number" class=" affichageQuantite" name=" affichageQuantite" min="1" max="100" value="${produitLocalstorage[a].quantity
                 }">
        </div>
        <div class="carte_Objet__content__supprim">
@@ -41,40 +41,41 @@ function AffichageElement() {
    </div>
  </article>`;
         }
-        positionElement.innerHTML = ProduitPanier;
+        positionElement.innerHTML = produitPanier;
         displayTotal();
-        SuppressionArticle();
+        suppressionArticle();
     } else {
-        var panierVide=document.getElementById("panierVide")
-        panierVide.textContent="Votre panier est vide pour l'instant"
-        var aColl = document.getElementById('class_non_visible')
-        aColl.style.display='none'
+        var panierVide = document.getElementById("panierVide")
+        panierVide.textContent = "Votre panier est vide pour l'instant"
+        var prixNonVisible = document.getElementById('class_non_visible')
+        prixNonVisible.style.display = 'none'
+        console.log(prixNonVisible);
     }
 }
 //fonction pour la mise à jour du total du prix et des Qté d'articles
-function displayTotal() {
-    let PrixTotalCalcule = [];
+var displayTotal = () => {
+    let prixTotalCalcule = [];
     let QuantiteTotaleCalcul = [];
-    for (let t = 0; t < ProduitLocalstorage.length; t++) {
-        let prixTotalPanier = ProduitLocalstorage[t].price;
-        let quantitePanier = ProduitLocalstorage[t].quantity;
-        PrixTotalCalcule.push(prixTotalPanier * quantitePanier);
+    for (let t = 0; t < produitLocalstorage.length; t++) {
+        let prixTotalPanier = produitLocalstorage[t].price;
+        let quantitePanier = produitLocalstorage[t].quantity;
+        prixTotalCalcule.push(prixTotalPanier * quantitePanier);
         QuantiteTotaleCalcul.push(quantitePanier);
         console.log(QuantiteTotaleCalcul);
     }
 
     const reducer = (accumulator, currentValue) => accumulator + currentValue;
-    const PrixTotal = PrixTotalCalcule.reduce(reducer, 0);
+    const PrixTotal = prixTotalCalcule.reduce(reducer, 0);
     const displayTotalPrice = document.getElementById("PrixTotal");
     displayTotalPrice.innerHTML = PrixTotal;
     const displayQuantiteTotale = document.getElementById("QuantiteTotale");
-    displayQuantiteTotale.innerHTML =`${eval(QuantiteTotaleCalcul.join("+"))}`;
-    const QtéPanier = document.getElementById("qte_in_basket");
-    QtéPanier.innerHTML= `${eval(QuantiteTotaleCalcul.join("+"))}`
+    displayQuantiteTotale.innerHTML = `${eval(QuantiteTotaleCalcul.join("+"))}`;
+    const qtePanier = document.getElementById("qte_in_basket");
+    qtePanier.innerHTML = `${eval(QuantiteTotaleCalcul.join("+"))}`
 }
 //Suppression et modification du nombre d'article
-let  AffichageQuantite = document.querySelector(".AffichageQuantite");
-function SuppressionArticle() {
+let affichageQuantite = document.querySelector(".affichageQuantite");
+var suppressionArticle = () => {
     let article = document.querySelectorAll(".carte_Objet");
 
     for (let n = 0; n < article.length; n++) {
@@ -83,24 +84,24 @@ function SuppressionArticle() {
             e.preventDefault();
             const elt = e.target.closest("article");
             const index = elt.dataset.index;
-            ProduitLocalstorage.splice(index, 1);
-            localStorage.setItem("produit", JSON.stringify(ProduitLocalstorage));
+            produitLocalstorage.splice(index, 1);
+            localStorage.setItem("produit", JSON.stringify(produitLocalstorage));
             elt.remove();
             window.location.href = "panier.html"
-            AffichageElement();
+            affichageElement();
             displayTotal();
         });
-        const  btnAjoutProduit = article[n].querySelector(".AffichageQuantite");
-         btnAjoutProduit.addEventListener("input", (e) => {
+        const btnAjoutProduit = article[n].querySelector(".affichageQuantite");
+        btnAjoutProduit.addEventListener("input", (e) => {
             //on récupère l'index du produit dans le storage
             //on actualise la quantité
             //on actualise le total
             //on sauvegarde le localstorage
-            console.log(ProduitLocalstorage);
+            console.log(produitLocalstorage);
             const index = article[n].dataset.index;
-            ProduitLocalstorage[index].quantity = parseInt(e.target.value);
-            localStorage.setItem("produit", JSON.stringify(ProduitLocalstorage));
-            article[n].querySelector(".itemTotal").innerHTML = `${ProduitLocalstorage[index].quantity * (ProduitLocalstorage[index].price)
+            produitLocalstorage[index].quantity = parseInt(e.target.value);
+            localStorage.setItem("produit", JSON.stringify(produitLocalstorage));
+            article[n].querySelector(".itemTotal").innerHTML = `${produitLocalstorage[index].quantity * (produitLocalstorage[index].price)
                 } euros`;
 
             displayTotal();
@@ -234,14 +235,29 @@ var validePanier = () => {
         city: Ville.value,
         email: mail.value,
     }
-    if (validationAddress(Nom.value) && validationPreNom(PreNom.value)
-        && validationAddress(adresse.value) && validationVille(Ville.value)
-        && (validMail(mail.value))) {
-                // TAbleau pour recuperer les id des nounous qui sons dans le panier 
+    //Condition pour bloquer l'enregistrement d'une commande si le panier est vide
+    var monPanierVide = (produitLocalstorage) => {
+        if (produitLocalstorage.length > 0) {
+            return true;
+        } else {
+            alert("Votre panier est vide");
+            return false;
+        }
+    }
+
+    if (
+        monPanierVide(produitLocalstorage) == true &&
+        validationAddress(Nom.value) &&
+        validationPreNom(PreNom.value) &&
+        validationAddress(adresse.value) &&
+        validationVille(Ville.value) &&
+        (validMail(mail.value))) {
+        // TAbleau pour recuperer les id des nounous qui sons dans le panier 
         let products = [];
-        for (storedTeddy of ProduitLocalstorage) {
-            console.log(storedTeddy);
-            let produitId = storedTeddy.idProduit;
+        for (detailTeddy of produitLocalstorage) {
+            console.log(detailTeddy);
+            let produitId = detailTeddy.idProduit;
+            console.log(detailTeddy.idProduit);
             products.push((produitId));
         }
         console.log(products);
